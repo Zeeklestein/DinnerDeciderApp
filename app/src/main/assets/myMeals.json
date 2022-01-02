@@ -1,0 +1,36 @@
+{
+  "meals": [
+    {
+      "mealName": "Toast",
+      "ingredients": [
+        {
+          "ingredientName": "Bread",
+          "quantity": "1 Slice"
+        },
+        {
+          "ingredientName": "Strawberry Jam",
+          "quantity": "1 scoop"
+        }
+      ],
+      "method": "Toast that toast and smother with jam."
+    },
+    {
+      "mealName": "Sticky Chicken Wings",
+      "ingredients": [
+        {
+          "ingredientName": "Chicken Wings",
+          "quantity": "10 pieces"
+        },
+        {
+          "ingredientName": "Teriyaki Sauce",
+          "quantity": "2 Tbs"
+        },
+        {
+          "ingredientName": "Chilli",
+          "quantity": "2"
+        }
+      ],
+      "method": "Put all together and eat."
+    }
+  ]
+}
