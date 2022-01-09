@@ -11,6 +11,7 @@ data class MealModelClass (
 )
 
 data class Ingredient(
+    val ingredientId: Int = 0,
     val ingredientName: String,
     val quantity: String
 )

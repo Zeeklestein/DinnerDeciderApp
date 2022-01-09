@@ -4,32 +4,70 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
-import com.example.dinnerdeciderapp.model.MealModelClass
 
-class AddIngredientAdapter (private val context: Context, private val items: List<Ingredient>) : RecyclerView.Adapter<AddIngredientAdapter.ViewHolder>() {
+class AddIngredientAdapter (
+    private val context: Context,
+    private val onIngredientClickListener: OnIngredientClickListener,
+    private val ingredientList: ArrayList<Ingredient>
+    ) : RecyclerView.Adapter<AddIngredientAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(
-            R.layout.new_ingredient_layout, parent, false
-        ))
+
+        val inflater = LayoutInflater.from(parent.context)
+        val view = inflater.inflate(R.layout.new_ingredient_layout, parent, false)
+        val holder = ViewHolder(view)
+
+        //to delete an ingredient in the recycler view
+        holder.ingredientDelete.setOnClickListener {
+            val position = holder.adapterPosition
+            val model = ingredientList[position]
+            onIngredientClickListener.onDelete(model)
+        }
+
+        return holder
     }
 
     override fun onBindViewHolder(holder: AddIngredientAdapter.ViewHolder, position: Int) {
-        val item = items[position]
+        val item = ingredientList[position]
 
         holder.tvIngrQuantity.text = item.quantity
         holder.tvIngrName.text = item.ingredientName
     }
 
     override fun getItemCount(): Int {
-        return  items.size
+        return  ingredientList.size
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val tvIngrQuantity: TextView = view.findViewById(R.id.tv_IngrQuantity)
         val tvIngrName: TextView = view.findViewById(R.id.tv_IngrName)
+        val ingredientDelete: ImageView = view.findViewById(R.id.imgBtn_DeleteIngr)
     }
+
+    //Method to add ingredient to the list
+    fun addIngredient(model: Ingredient){
+        ingredientList.add(model)
+        notifyItemChanged(ingredientList.size)
+    }
+
+    //Method to remove an ingredient from the list
+    fun removeIngredient(model: Ingredient){
+        val position = ingredientList.indexOf(model)
+        ingredientList.remove(model)
+        notifyItemRemoved(position)
+    }
+
+    //Method used to automatically assign an id to an ingredient
+    fun getNextItemId(): Int{
+        var id = 1
+        if(ingredientList.isNotEmpty()){
+            id = ingredientList.last().ingredientId + 1
+        }
+        return id
+    }
+
 }
