@@ -10,36 +10,36 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
 
 class AddIngredientAdapter (
-    private val context: Context,
-    private val onIngredientClickListener: OnIngredientClickListener,
-    private val ingredientList: ArrayList<Ingredient>
+    private val mContext: Context,
+    private val mOnIngredientClickListener: OnIngredientClickListener,
+    private val mIngredientList: ArrayList<Ingredient> = ArrayList()
     ) : RecyclerView.Adapter<AddIngredientAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val inflater = LayoutInflater.from(parent.context)
+        val inflater = LayoutInflater.from(mContext)
         val view = inflater.inflate(R.layout.new_ingredient_layout, parent, false)
         val holder = ViewHolder(view)
 
         //to delete an ingredient in the recycler view
         holder.ingredientDelete.setOnClickListener {
             val position = holder.adapterPosition
-            val model = ingredientList[position]
-            onIngredientClickListener.onDelete(model)
+            val model = mIngredientList[position]
+            mOnIngredientClickListener.onDelete(model)
         }
 
         return holder
     }
 
     override fun onBindViewHolder(holder: AddIngredientAdapter.ViewHolder, position: Int) {
-        val item = ingredientList[position]
+        val item = mIngredientList[position]
 
         holder.tvIngrQuantity.text = item.quantity
         holder.tvIngrName.text = item.ingredientName
     }
 
     override fun getItemCount(): Int {
-        return  ingredientList.size
+        return  mIngredientList.size
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -50,22 +50,22 @@ class AddIngredientAdapter (
 
     //Method to add ingredient to the list
     fun addIngredient(model: Ingredient){
-        ingredientList.add(model)
-        notifyItemChanged(ingredientList.size)
+        mIngredientList.add(model)
+        notifyItemChanged(mIngredientList.size)
     }
 
     //Method to remove an ingredient from the list
     fun removeIngredient(model: Ingredient){
-        val position = ingredientList.indexOf(model)
-        ingredientList.remove(model)
+        val position = mIngredientList.indexOf(model)
+        mIngredientList.remove(model)
         notifyItemRemoved(position)
     }
 
     //Method used to automatically assign an id to an ingredient
     fun getNextItemId(): Int{
         var id = 1
-        if(ingredientList.isNotEmpty()){
-            id = ingredientList.last().ingredientId + 1
+        if(mIngredientList.isNotEmpty()){
+            id = mIngredientList.last().ingredientId + 1
         }
         return id
     }

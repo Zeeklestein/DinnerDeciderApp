@@ -17,14 +17,16 @@ class NewMealActivity : AppCompatActivity() {
     private lateinit var ingredientQuantity: EditText
 
     private lateinit var ingredientListRV: RecyclerView
-    private lateinit var ingredientListAdapter: AddIngredientAdapter
+    private lateinit var mIngredientListAdapter: AddIngredientAdapter
 
-    private var modelToBeUpdated: Stack<Ingredient> = Stack()
+    //private var modelToBeUpdated: Stack<Ingredient> = Stack()
 
-    private val OnIngredientClickListener = object : OnIngredientClickListener {
+    private val mOnIngredientClickListener = object : OnIngredientClickListener {
+
         override fun onDelete(model: Ingredient) {
-            ingredientListAdapter.removeIngredient(model)
+            mIngredientListAdapter.removeIngredient(model)
         }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,14 +34,36 @@ class NewMealActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_meal)
 
         //Initialise the recycler view
-        ingredientListRV = findViewById<RecyclerView>(R.id.rv_ingredients)
+        ingredientListRV = findViewById(R.id.rv_ingredients)
         ingredientListRV.layoutManager = LinearLayoutManager(this)
+        //ingredientListRV.setHasFixedSize(true)
 
-        ingredientName = findViewById(R.id.tv_IngrName)
-        ingredientQuantity = findViewById(R.id.tv_IngrQuantity)
+        mIngredientListAdapter = AddIngredientAdapter(this, mOnIngredientClickListener)
+        ingredientListRV.adapter = mIngredientListAdapter
+
+        ingredientName = findViewById(R.id.editText_IngrName)
+        ingredientQuantity = findViewById(R.id.editText_IngrQuantity)
 
         addIngredientBtn = findViewById(R.id.btn_addIngr)
         addIngredientBtn.setOnClickListener {
+
+            val name = ingredientName.text.toString()
+            val quantity = ingredientQuantity.text.toString()
+
+            if (name.isNotBlank() && quantity.isNotBlank()) {
+
+                //Get id automatically using method in adapter
+                val id = mIngredientListAdapter.getNextItemId()
+                //Create the ingredient model
+                val model = Ingredient(id, name, quantity)
+
+                //add model to the adapter
+                mIngredientListAdapter.addIngredient(model)
+
+                //Reset input
+                ingredientName.setText("")
+                ingredientQuantity.setText("")
+            } //TODO("Add Snackbar or toast for blank input")
 
         }
 
