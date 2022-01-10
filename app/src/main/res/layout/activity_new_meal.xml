@@ -1,75 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewMealActivity">
 
-    <EditText
-        android:id="@+id/editText_MealName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Meal Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-    <EditText
-        android:id="@+id/editText_IngrQuantity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Quantity"
-        android:textSize="12sp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editText_MealName"/>
+            <EditText
+                android:id="@+id/editText_MealName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Meal name"
+                android:inputType="text" />
 
-    <EditText
-        android:id="@+id/editText_IngrName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="20"
-        android:inputType="textPersonName"
-        android:hint="Ingredient"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_IngrQuantity" />
+            <EditText
+                android:id="@+id/editText_IngrQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="Quantity"
+                android:inputType="textPersonName"
+                android:textSize="12sp"
+                android:layout_below="@id/editText_MealName"/>
 
-    <Button
-        android:id="@+id/btn_addIngr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:text="@string/add_ingredient_button"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/editText_IngrQuantity"
-        app:layout_constraintBottom_toBottomOf="@id/editText_IngrName"/>
+            <EditText
+                android:id="@+id/editText_IngrName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:hint="Ingredient"
+                android:inputType="textPersonName"
+                android:textSize="12sp"
+                android:layout_below="@id/editText_IngrQuantity"/>
 
+            <Button
+                android:id="@+id/btn_addIngr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="@string/add_ingredient_button"
+                android:textSize="12sp"
+                android:layout_alignParentEnd="true"
+                android:layout_above="@id/rv_ingredients"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_ingredients"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editText_IngrName" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/editText_IngrName"/>
+
+            <EditText
+                android:id="@+id/editTextMulti_Method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rv_ingredients"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:hint="Method"/>
+
+        </RelativeLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btn_SaveMeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:text="Save" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

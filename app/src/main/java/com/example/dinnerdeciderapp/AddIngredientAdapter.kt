@@ -70,4 +70,9 @@ class AddIngredientAdapter (
         return id
     }
 
+    //Method to access the ingredients list
+    fun getIngredientList(): ArrayList<Ingredient> {
+        return mIngredientList
+    }
+
 }

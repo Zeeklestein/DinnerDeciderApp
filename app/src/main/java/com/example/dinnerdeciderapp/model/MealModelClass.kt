@@ -7,7 +7,7 @@ data class Meals (
 data class MealModelClass (
     val mealName: String,
     val ingredients: MutableList<Ingredient>,
-    val method: String
+    //val method: String
 )
 
 data class Ingredient(
