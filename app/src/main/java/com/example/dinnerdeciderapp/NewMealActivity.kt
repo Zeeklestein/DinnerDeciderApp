@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
 import com.example.dinnerdeciderapp.model.MealModelClass
+import com.google.gson.Gson
+import java.io.File
 
 class NewMealActivity : AppCompatActivity() {
 
@@ -16,6 +18,7 @@ class NewMealActivity : AppCompatActivity() {
     private lateinit var ingredientName: EditText
     private lateinit var ingredientQuantity: EditText
     private lateinit var mealName: EditText
+    private lateinit var mealMethod: EditText
 
     private lateinit var ingredientListRV: RecyclerView
     private lateinit var mIngredientListAdapter: AddIngredientAdapter
@@ -35,7 +38,6 @@ class NewMealActivity : AppCompatActivity() {
         //Initialise the recycler view
         ingredientListRV = findViewById(R.id.rv_ingredients)
         ingredientListRV.layoutManager = LinearLayoutManager(this)
-        //ingredientListRV.setHasFixedSize(true)
 
         mIngredientListAdapter = AddIngredientAdapter(this, mOnIngredientClickListener)
         ingredientListRV.adapter = mIngredientListAdapter
@@ -43,6 +45,7 @@ class NewMealActivity : AppCompatActivity() {
         ingredientName = findViewById(R.id.editText_IngrName)
         ingredientQuantity = findViewById(R.id.editText_IngrQuantity)
         mealName = findViewById(R.id.editText_MealName)
+        mealMethod = findViewById(R.id.editTextMulti_Method)
 
         //Functionality for the add ingredient button
         addIngredientBtn = findViewById(R.id.btn_addIngr)
@@ -74,11 +77,17 @@ class NewMealActivity : AppCompatActivity() {
         saveMealBtn.setOnClickListener {
 
             val name = mealName.text.toString()
+            val method = mealMethod.text.toString()
 
             if (name.isNotBlank()){
-                val newMeal = MealModelClass(name, mIngredientListAdapter.getIngredientList())
 
-                //TODO Meal is saved to the json file
+                val newMeal = MealModelClass(name, mIngredientListAdapter.getIngredientList(), method)
+
+                //TODO("Meal is saved to the json file. Use internal storage.")
+                val jsonString = Gson().toJson(newMeal)
+
+
+
             }
 
 

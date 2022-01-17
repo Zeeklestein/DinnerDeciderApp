@@ -1,5 +1,6 @@
 package com.example.dinnerdeciderapp
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Meals
 import com.google.gson.Gson
 import org.json.JSONException
+import java.io.File
 import java.io.IOException
+import java.io.InputStream
 import java.nio.charset.Charset
 
 class ManageMealsActivity : AppCompatActivity() {
@@ -21,13 +24,15 @@ class ManageMealsActivity : AppCompatActivity() {
 
         try{
             val jsonString = getJSONMealData()!!
-            val meals = Gson().fromJson(jsonString, Meals::class.java)
-            val rvMealList = findViewById<RecyclerView>(R.id.rv_MealList)
 
-            rvMealList.layoutManager = LinearLayoutManager(this)
-            val itemAdapter = ListMealsAdapter(this, meals.meals)
-            rvMealList.adapter = itemAdapter
+            if (jsonString.isNotBlank()){
+                val meals = Gson().fromJson(jsonString, Meals::class.java)
+                val rvMealList = findViewById<RecyclerView>(R.id.rv_MealList)
 
+                rvMealList.layoutManager = LinearLayoutManager(this)
+                val itemAdapter = ListMealsAdapter(this, meals.meals)
+                rvMealList.adapter = itemAdapter
+            }
         } catch (e: JSONException){
             e.printStackTrace()
         }
@@ -39,26 +44,36 @@ class ManageMealsActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getJSONMealData(): String? {
 
         var json: String? = null
-        val charset: Charset = Charsets.UTF_8
+        val myFileName = "myMeals.json"
+        val file = File(this.filesDir, myFileName)
 
-        try {
-            val mealJSONFile = assets.open("myMeals.json")
-            val size = mealJSONFile.available()
-            val buffer = ByteArray(size)
-            mealJSONFile.read(buffer)
-            mealJSONFile.close()
-            json = String(buffer, charset)
+            try {
+                //Check it the file does not exist
+                if(!file.exists()){
+                    //Creates the file if not exists
+                    this.openFileOutput(myFileName, Context.MODE_PRIVATE).use{
+                        it.write("".toByteArray())
+                    }
+                } else {
+                    //Else, opens the file and reads the text
+                    this.openFileInput(myFileName).use { stream ->
+                        json = stream.bufferedReader().use {
+                            it.readText()
+                        }
+                    }
+                }
+
         } catch (ex: IOException){
             ex.printStackTrace()
-            //TODO("Add message if no meals exist in file")
             return null
         }
         return json
     }
 
+
 }
+
 
