@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dinnerdeciderapp.model.Meals
 import com.google.gson.Gson
 import org.json.JSONException
 import java.io.IOException

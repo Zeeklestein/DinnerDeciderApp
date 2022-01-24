@@ -1,6 +1,5 @@
 package com.example.dinnerdeciderapp
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,36 +9,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
 
 class AddIngredientAdapter (
-    private val mContext: Context,
-    private val mOnIngredientClickListener: OnIngredientClickListener,
-    private val mIngredientList: ArrayList<Ingredient> = ArrayList()
+    private val onIngredientClickListener: OnIngredientClickListener,
+    private val ingredientList: ArrayList<Ingredient> = ArrayList()
     ) : RecyclerView.Adapter<AddIngredientAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val inflater = LayoutInflater.from(mContext)
+        val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.new_ingredient_layout, parent, false)
         val holder = ViewHolder(view)
 
         //to delete an ingredient in the recycler view
         holder.ingredientDelete.setOnClickListener {
             val position = holder.adapterPosition
-            val model = mIngredientList[position]
-            mOnIngredientClickListener.onDelete(model)
+            val model = ingredientList[position]
+            onIngredientClickListener.onDelete(model)
         }
 
         return holder
     }
 
     override fun onBindViewHolder(holder: AddIngredientAdapter.ViewHolder, position: Int) {
-        val item = mIngredientList[position]
+        val item = ingredientList[position]
 
         holder.tvIngrQuantity.text = item.quantity
         holder.tvIngrName.text = item.ingredientName
     }
 
     override fun getItemCount(): Int {
-        return  mIngredientList.size
+        return  ingredientList.size
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -50,29 +48,29 @@ class AddIngredientAdapter (
 
     //Method to add ingredient to the list
     fun addIngredient(model: Ingredient){
-        mIngredientList.add(model)
-        notifyItemChanged(mIngredientList.size)
+        ingredientList.add(model)
+        notifyItemChanged(ingredientList.size)
     }
 
     //Method to remove an ingredient from the list
     fun removeIngredient(model: Ingredient){
-        val position = mIngredientList.indexOf(model)
-        mIngredientList.remove(model)
+        val position = ingredientList.indexOf(model)
+        ingredientList.remove(model)
         notifyItemRemoved(position)
     }
 
     //Method used to automatically assign an id to an ingredient
     fun getNextItemId(): Int{
         var id = 1
-        if(mIngredientList.isNotEmpty()){
-            id = mIngredientList.last().ingredientId + 1
+        if(ingredientList.isNotEmpty()){
+            id = ingredientList.last().ingredientId + 1
         }
         return id
     }
 
     //Method to access the ingredients list
     fun getIngredientList(): ArrayList<Ingredient> {
-        return mIngredientList
+        return ingredientList
     }
 
 }

@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
 import com.example.dinnerdeciderapp.model.MealModelClass
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import java.io.IOException
 
 class NewMealActivity : AppCompatActivity() {
@@ -39,7 +41,7 @@ class NewMealActivity : AppCompatActivity() {
         ingredientListRV = findViewById(R.id.rv_ingredients)
         ingredientListRV.layoutManager = LinearLayoutManager(this)
 
-        mIngredientListAdapter = AddIngredientAdapter(this, mOnIngredientClickListener)
+        mIngredientListAdapter = AddIngredientAdapter(mOnIngredientClickListener)
         ingredientListRV.adapter = mIngredientListAdapter
 
         ingredientName = findViewById(R.id.editText_IngrName)
@@ -81,17 +83,27 @@ class NewMealActivity : AppCompatActivity() {
             if (name.isNotBlank()) {
 
                 val newMeal = MealModelClass(name, mIngredientListAdapter.getIngredientList(), method)
-                //val mealArray = intent.getParcelableArrayListExtra<MealModelClass>("mealArray")
 
+                val gson = GsonBuilder().setPrettyPrinting().create()
 
-                //TODO("Meal is saved to the json file. Use internal storage.")
-                val jsonString = Gson().toJson(newMeal)
-                val myFileName = "myMeals.json"
+                //val newMealString = gson.toJson(newMeal, MealModelClass::class.java)
+                val allMealsString = JsonMealData().getJSONMealData(this, this.filesDir)
+                var mealList: ArrayList<MealModelClass> = ArrayList()
 
+                //Check if the json string is blank/null
+                if(!allMealsString.isNullOrBlank()){
+                    //If not null, get the data from it
+                    mealList = gson.fromJson(allMealsString,
+                        object :TypeToken<ArrayList<MealModelClass>>(){}.type)
+                }
+                //Add the new meal to the array list
+                mealList.add(newMeal)
+                //Convert the array list to json
+                val finalMealListString = gson.toJson(mealList)
+
+                //Write the final json string to file
                 try{
-                    this.openFileOutput(myFileName, Context.MODE_APPEND).use{
-                        it.write(jsonString.toByteArray())
-                    }
+                    JsonMealData().writeJSONMealData(this, finalMealListString.toByteArray())
                 }
                 catch (ex: IOException){
                     ex.printStackTrace()

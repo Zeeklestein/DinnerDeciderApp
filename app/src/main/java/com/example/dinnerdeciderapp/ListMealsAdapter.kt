@@ -9,20 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.MealModelClass
 
 class ListMealsAdapter(
-    private val context: Context,
     private val mealList: ArrayList<MealModelClass> = ArrayList()
     ) : RecyclerView.Adapter<ListMealsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(
-            R.layout.meal_item_layout, parent, false
-        ))
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val view = layoutInflater.inflate(R.layout.meal_item_layout, parent, false) as View
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mealList[position]
-
-        holder.tvMealName.text = item.mealName
+        val listItem = mealList[position]
+        holder.tvMealName.text = listItem.mealName
     }
 
     override fun getItemCount(): Int {
