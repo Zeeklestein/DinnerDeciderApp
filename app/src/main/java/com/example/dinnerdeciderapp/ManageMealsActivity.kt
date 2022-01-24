@@ -7,15 +7,18 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dinnerdeciderapp.model.MealModelClass
 import com.example.dinnerdeciderapp.model.Meals
 import com.google.gson.Gson
 import org.json.JSONException
 import java.io.File
 import java.io.IOException
-import java.io.InputStream
-import java.nio.charset.Charset
 
 class ManageMealsActivity : AppCompatActivity() {
+
+    private lateinit var mListMealsAdapter: ListMealsAdapter
+    private lateinit var meals: Meals
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_meals)
@@ -26,12 +29,12 @@ class ManageMealsActivity : AppCompatActivity() {
             val jsonString = getJSONMealData()!!
 
             if (jsonString.isNotBlank()){
-                val meals = Gson().fromJson(jsonString, Meals::class.java)
+                meals = Gson().fromJson(jsonString, Meals::class.java)
                 val rvMealList = findViewById<RecyclerView>(R.id.rv_MealList)
 
                 rvMealList.layoutManager = LinearLayoutManager(this)
-                val itemAdapter = ListMealsAdapter(this, meals.meals)
-                rvMealList.adapter = itemAdapter
+                mListMealsAdapter = ListMealsAdapter(this, meals.meals)
+                rvMealList.adapter = mListMealsAdapter
             }
         } catch (e: JSONException){
             e.printStackTrace()
@@ -39,7 +42,9 @@ class ManageMealsActivity : AppCompatActivity() {
 
         //Listener for the new meal button. Starts the new meal activity.
         newMealButton.setOnClickListener {
-            val intent = Intent (this, NewMealActivity::class.java).apply{}
+            val intent = Intent (this, NewMealActivity::class.java).apply{
+                putExtra("mealArray", meals.meals)
+            }
             startActivity(intent)
         }
     }

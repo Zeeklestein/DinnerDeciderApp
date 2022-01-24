@@ -1,5 +1,6 @@
 package com.example.dinnerdeciderapp
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -8,8 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
 import com.example.dinnerdeciderapp.model.MealModelClass
+import com.example.dinnerdeciderapp.model.Meals
 import com.google.gson.Gson
-import java.io.File
+import java.io.IOException
 
 class NewMealActivity : AppCompatActivity() {
 
@@ -79,20 +81,28 @@ class NewMealActivity : AppCompatActivity() {
             val name = mealName.text.toString()
             val method = mealMethod.text.toString()
 
-            if (name.isNotBlank()){
+            if (name.isNotBlank()) {
 
                 val newMeal = MealModelClass(name, mIngredientListAdapter.getIngredientList(), method)
+                val mealArray = intent?.getSerializableExtra("mealArray")
+                //mealArray!!.add(newMeal)
+
 
                 //TODO("Meal is saved to the json file. Use internal storage.")
-                val jsonString = Gson().toJson(newMeal)
+                val jsonString = Gson().toJson(mealArray)
+                val myFileName = "myMeals.json"
 
-
-
+                /*Pass the array from the list meals adapter through the intent. Add the new meal
+                to that array, and overwrite the stupid file for now.*/
+                try{
+                    this.openFileOutput(myFileName, Context.MODE_PRIVATE).use{
+                        it.write(jsonString.toByteArray())
+                    }
+                }
+                catch (ex: IOException){
+                    ex.printStackTrace()
+                }
             }
-
-
         }
-
     }
-
 }
