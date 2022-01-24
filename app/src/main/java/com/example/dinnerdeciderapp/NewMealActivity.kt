@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
 import com.example.dinnerdeciderapp.model.MealModelClass
-import com.example.dinnerdeciderapp.model.Meals
 import com.google.gson.Gson
 import java.io.IOException
 
@@ -30,7 +29,6 @@ class NewMealActivity : AppCompatActivity() {
         override fun onDelete(model: Ingredient) {
             mIngredientListAdapter.removeIngredient(model)
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +69,6 @@ class NewMealActivity : AppCompatActivity() {
                 ingredientName.setText("")
                 ingredientQuantity.setText("")
             } //TODO("Add Snack bar or toast for blank input")
-
         }
 
         //Functionality for the save meal button
@@ -84,18 +81,15 @@ class NewMealActivity : AppCompatActivity() {
             if (name.isNotBlank()) {
 
                 val newMeal = MealModelClass(name, mIngredientListAdapter.getIngredientList(), method)
-                val mealArray = intent?.getSerializableExtra("mealArray")
-                //mealArray!!.add(newMeal)
+                //val mealArray = intent.getParcelableArrayListExtra<MealModelClass>("mealArray")
 
 
                 //TODO("Meal is saved to the json file. Use internal storage.")
-                val jsonString = Gson().toJson(mealArray)
+                val jsonString = Gson().toJson(newMeal)
                 val myFileName = "myMeals.json"
 
-                /*Pass the array from the list meals adapter through the intent. Add the new meal
-                to that array, and overwrite the stupid file for now.*/
                 try{
-                    this.openFileOutput(myFileName, Context.MODE_PRIVATE).use{
+                    this.openFileOutput(myFileName, Context.MODE_APPEND).use{
                         it.write(jsonString.toByteArray())
                     }
                 }

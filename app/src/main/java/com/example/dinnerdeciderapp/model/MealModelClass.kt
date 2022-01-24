@@ -4,7 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-
 data class Meals (
     val meals: ArrayList<MealModelClass>
 ): Parcelable{}
