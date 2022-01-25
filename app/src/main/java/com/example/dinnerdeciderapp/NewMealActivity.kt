@@ -1,15 +1,15 @@
 package com.example.dinnerdeciderapp
 
-import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
 import com.example.dinnerdeciderapp.model.MealModelClass
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
@@ -70,7 +70,7 @@ class NewMealActivity : AppCompatActivity() {
                 //Reset input
                 ingredientName.setText("")
                 ingredientQuantity.setText("")
-            } //TODO("Add Snack bar or toast for blank input")
+            }
         }
 
         //Functionality for the save meal button
@@ -101,9 +101,16 @@ class NewMealActivity : AppCompatActivity() {
                 //Convert the array list to json
                 val finalMealListString = gson.toJson(mealList)
 
+
                 //Write the final json string to file
                 try{
                     JsonMealData().writeJSONMealData(this, finalMealListString.toByteArray())
+                    //Show toast to notify that the meal was added successfully
+                    val toast = Toast.makeText(this, "'${newMeal.mealName}' Added Successfully", Toast.LENGTH_SHORT)
+                    toast.show()
+                    //Intent to automatically return to the Manage Meals Activity
+                    val intent = Intent (this, ManageMealsActivity::class.java).apply{}
+                    startActivity(intent)
                 }
                 catch (ex: IOException){
                     ex.printStackTrace()
