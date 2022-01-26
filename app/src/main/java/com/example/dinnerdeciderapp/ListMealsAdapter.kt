@@ -29,11 +29,5 @@ class ListMealsAdapter(
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val tvMealName: TextView = view.findViewById(R.id.tv_IngrName)
     }
-
-    //Method to access the Meal list
-    fun getMealList(): ArrayList<MealModelClass> {
-        return mealList
-    }
-
 }
 

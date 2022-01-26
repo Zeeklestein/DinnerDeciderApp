@@ -23,10 +23,6 @@
         <activity
             android:name=".NewMealActivity"
             android:exported="false" />
-
-        <activity
-            android:name=".ManageMealsActivity"
-            android:exported="false"/>
     </application>
 
 </manifest>

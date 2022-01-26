@@ -109,7 +109,7 @@ class NewMealActivity : AppCompatActivity() {
                     val toast = Toast.makeText(this, "'${newMeal.mealName}' Added Successfully", Toast.LENGTH_SHORT)
                     toast.show()
                     //Intent to automatically return to the Manage Meals Activity
-                    val intent = Intent (this, ManageMealsActivity::class.java).apply{}
+                    val intent = Intent (this, MainActivity::class.java).apply{}
                     startActivity(intent)
                 }
                 catch (ex: IOException){
