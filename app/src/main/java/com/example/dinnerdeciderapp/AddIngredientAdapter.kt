@@ -16,7 +16,7 @@ class AddIngredientAdapter (
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.new_ingredient_layout, parent, false)
+        val view = inflater.inflate(R.layout.fragment_new_ingredient_layout, parent, false)
         val holder = ViewHolder(view)
 
         //to delete an ingredient in the recycler view

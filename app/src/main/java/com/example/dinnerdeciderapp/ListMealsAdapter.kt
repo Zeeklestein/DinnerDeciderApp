@@ -1,6 +1,5 @@
 package com.example.dinnerdeciderapp
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ class ListMealsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.meal_item_layout, parent, false) as View
+        val view = layoutInflater.inflate(R.layout.fragment_meal_item_layout, parent, false) as View
         return ViewHolder(view)
     }
 
