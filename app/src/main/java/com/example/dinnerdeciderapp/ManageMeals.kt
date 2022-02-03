@@ -14,6 +14,8 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import org.json.JSONException
 
+/*Functionality for the Manage Meals tab. Allows the uses to view their meals and add new meals.
+    * TODO:("Allow the user to edit and delete existing meals.")*/
 class ManageMeals : Fragment() {
 
     override fun onCreateView(
@@ -23,6 +25,7 @@ class ManageMeals : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_manage_meals, container, false)
         val newMealButton = view.findViewById<Button>(R.id.btn_NewMeal)
+
 
         try{
             //Get the json meal data into a string
@@ -38,7 +41,6 @@ class ManageMeals : Fragment() {
 
                 val rvMealList = view.findViewById<RecyclerView>(R.id.rv_MealList)
 
-
                 rvMealList.adapter = ListMealsAdapter(mealList)
                 //Add meal objects to the recycler view
                 rvMealList.layoutManager = LinearLayoutManager(view.context)
@@ -47,14 +49,12 @@ class ManageMeals : Fragment() {
             e.printStackTrace()
         }
 
-
         //Listener for the new meal button. Starts the new meal activity.
         newMealButton.setOnClickListener {
             val intent = Intent (view.context, NewMealActivity::class.java).apply{}
             startActivity(intent)
         }
 
-        // Inflate the layout for this fragment
         return view
     }
 
