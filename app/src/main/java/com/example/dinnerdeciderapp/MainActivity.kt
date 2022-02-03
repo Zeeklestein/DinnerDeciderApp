@@ -35,8 +35,6 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
         //Get meal data from JSON file and place in meal array singleton object
-//        val mealArrayObject = MealArrayObject
-//        mealArrayObject.mealArray = initMealData()
         MealArrayObject.singletonMealArray = initMealData()
 
     }

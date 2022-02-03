@@ -86,15 +86,7 @@ class NewMealActivity : AppCompatActivity() {
 
                 val gson = GsonBuilder().setPrettyPrinting().create()
 
-                val allMealsString = JsonMealData().getJSONMealData(this, this.filesDir)
-
-                //Check if the json string is blank/null
-                if(!allMealsString.isNullOrBlank()){
-                    //If not null, get the data from it
-                    MealArrayObject.singletonMealArray = gson.fromJson(allMealsString,
-                        object :TypeToken<ArrayList<MealModelClass>>(){}.type)
-                }
-                //Add the new meal to the array list
+                //Add the new meal to the MealArrayObject array list
                 MealArrayObject.singletonMealArray.add(newMeal)
                 //Convert the array list to json
                 val finalMealListString = gson.toJson(MealArrayObject.singletonMealArray)

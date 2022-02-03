@@ -28,31 +28,11 @@ class ManageMeals : Fragment() {
 
         val rvMealList = view.findViewById<RecyclerView>(R.id.rv_MealList)
 
+        //Adapter uses the MealArrayObject singleton's array of meals
         rvMealList.adapter = ListMealsAdapter(MealArrayObject.singletonMealArray)
         //Add meal objects to the recycler view
         rvMealList.layoutManager = LinearLayoutManager(view.context)
 
-//        try{
-//            //Get the json meal data into a string
-//            val jsonString = JsonMealData().getJSONMealData(view.context, view.context.filesDir)
-//
-//            if (!jsonString.isNullOrBlank()){
-//
-//                //mealsArray.add(Gson().fromJson(jsonString, MealModelClass::class.java))
-//                val gson = GsonBuilder().create()
-//                //val mealList = gson.fromJson(jsonString, MealModelClass::class.java)
-//                val mealList = gson.fromJson<ArrayList<MealModelClass>>(jsonString,
-//                    object : TypeToken<ArrayList<MealModelClass>>(){}.type)
-//
-//                val rvMealList = view.findViewById<RecyclerView>(R.id.rv_MealList)
-//
-//                rvMealList.adapter = ListMealsAdapter(mealList)
-//                //Add meal objects to the recycler view
-//                rvMealList.layoutManager = LinearLayoutManager(view.context)
-//            }
-//        } catch (e: JSONException){
-//            e.printStackTrace()
-//        }
 
         //Listener for the new meal button. Starts the new meal activity.
         newMealButton.setOnClickListener {

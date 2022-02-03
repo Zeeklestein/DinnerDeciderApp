@@ -7,5 +7,4 @@ object MealArrayObject {
 
     var singletonMealArray: ArrayList<MealModelClass> = ArrayList()
 
-
 }
