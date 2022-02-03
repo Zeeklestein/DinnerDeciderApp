@@ -1,21 +1,43 @@
 package com.example.dinnerdeciderapp
 
+import android.content.Context
+import android.widget.Toast
 import com.example.dinnerdeciderapp.model.MealModelClass
+import kotlin.random.Random
 
-class MealRandomiser {
+class MealRandomiser(
+    private val context: Context
+    ){
 
-    val everyMealArray: ArrayList<MealModelClass> = ArrayList()
-    val selectedMealArray: ArrayList<MealModelClass> = ArrayList()
+    private val selectedMealArray: ArrayList<MealModelClass> = ArrayList()
 
-    //Get all the meal stored in the JSON file and store in an array
+    //This function returns an arraylist of 7 random meals from the MealArrayObject
+    fun getRandomMeals(): ArrayList<MealModelClass>{
 
-    //This is repeated For each day of the week
+        /*Check if Meal Array Object contains at least 7 meals. Else use toast to tell user to
+        add more meals.*/
+        if(MealArrayObject.singletonMealArray.size >= 7) {
+            //This is repeated For each day of the week
+            for (day in 1..7){
+                var isLooping = true
+                while (isLooping){
+                    //Random number from 0 to array size is used as the array index to get a random meal
+                    val randomIndex = Random.nextInt(0, MealArrayObject.singletonMealArray.size)
+                    if(!selectedMealArray.contains(MealArrayObject.singletonMealArray[randomIndex])){
+                        //The randomised meal is added to the selected meals array
+                        selectedMealArray.add(MealArrayObject.singletonMealArray[randomIndex])
+                        isLooping = false
+                    }
+                }
+            }
+        } else{
+            val toast = Toast.makeText(context, "Need at least 7 meals to use Randomiser!", Toast.LENGTH_SHORT)
+            toast.show()
+        }
+        return selectedMealArray
 
-    //Random number from 0 to array size is used as the array index to get a random meal
+    }
 
-    //The randomised meal is added to the selected meals array
-
-    //The meals in the selected meals array is displayed for each day of the week
 
 
 

@@ -33,7 +33,6 @@ class ManageMeals : Fragment() {
         //Add meal objects to the recycler view
         rvMealList.layoutManager = LinearLayoutManager(view.context)
 
-
         //Listener for the new meal button. Starts the new meal activity.
         newMealButton.setOnClickListener {
             val intent = Intent (view.context, NewMealActivity::class.java).apply{}
