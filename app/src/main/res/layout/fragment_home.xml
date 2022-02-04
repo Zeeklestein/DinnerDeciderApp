@@ -5,70 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".TabHome">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/home_dummy_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home Tab" />
-
     <Button
         android:id="@+id/btn_randomise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Randomise!"
-        android:layout_below="@id/home_dummy_text"/>
+        android:text="Randomise All" />
 
-    <TextView
-        android:id="@+id/tv_monday"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_mealPlanner"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Monday"
         android:layout_below="@id/btn_randomise"/>
-
-    <TextView
-        android:id="@+id/tv_tuesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tuesday"
-        android:layout_below="@id/tv_monday"/>
-
-    <TextView
-        android:id="@+id/tv_wednesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wednesday"
-        android:layout_below="@id/tv_tuesday"/>
-
-    <TextView
-        android:id="@+id/tv_thursday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Thursday"
-        android:layout_below="@id/tv_wednesday"/>
-
-    <TextView
-        android:id="@+id/tv_friday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Friday"
-        android:layout_below="@id/tv_thursday"/>
-
-    <TextView
-        android:id="@+id/tv_saturday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Saturday"
-        android:layout_below="@id/tv_friday"/>
-
-    <TextView
-        android:id="@+id/tv_sunday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sunday"
-        android:layout_below="@id/tv_saturday"/>
-
 
 
 </RelativeLayout>
