@@ -13,7 +13,6 @@ class MealRandomiser(
 
     //This function returns an arraylist of 7 random meals from the MealArrayObject
     fun getRandomMeals(): ArrayList<MealModelClass>{
-
         /*Check if Meal Array Object contains at least 7 meals. Else use toast to tell user to
         add more meals.*/
         if(MealArrayObject.singletonMealArray.size >= 7) {
@@ -35,7 +34,6 @@ class MealRandomiser(
             toast.show()
         }
         return selectedMealArray
-
     }
 
 

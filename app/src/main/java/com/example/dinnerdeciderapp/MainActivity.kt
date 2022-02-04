@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager
         ) { tab, position ->
             when (position) {
-                0 -> tab.text = "TabHome"
+                0 -> tab.text = "Home"
                 1 -> tab.text = "Manage"
                 2 -> tab.text = "List"
         }

@@ -16,7 +16,7 @@
         android:id="@+id/rv_mealPlanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_randomise"/>
+        android:layout_below="@id/btn_randomise" />
 
 
 </RelativeLayout>
