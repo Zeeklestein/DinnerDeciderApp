@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.MealModelClass
 
-class ListMealsAdapter(
+class AdapterListMeals(
     private val mealList: ArrayList<MealModelClass> = ArrayList()
-    ) : RecyclerView.Adapter<ListMealsAdapter.ViewHolder>() {
+    ) : RecyclerView.Adapter<AdapterListMeals.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

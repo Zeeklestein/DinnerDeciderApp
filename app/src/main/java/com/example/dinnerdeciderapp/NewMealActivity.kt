@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
 import com.example.dinnerdeciderapp.model.MealModelClass
 import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import java.io.IOException
 
 class NewMealActivity : AppCompatActivity() {
@@ -24,12 +23,12 @@ class NewMealActivity : AppCompatActivity() {
     private lateinit var mealMethod: EditText
 
     private lateinit var ingredientListRV: RecyclerView
-    private lateinit var mIngredientListAdapter: AddIngredientAdapter
+    private lateinit var mIngredientListAdapterAddIngredient: AdapterAddIngredient
 
     private val mOnIngredientClickListener = object : OnIngredientClickListener {
 
         override fun onDelete(model: Ingredient) {
-            mIngredientListAdapter.removeIngredient(model)
+            mIngredientListAdapterAddIngredient.removeIngredient(model)
         }
     }
 
@@ -41,8 +40,8 @@ class NewMealActivity : AppCompatActivity() {
         ingredientListRV = findViewById(R.id.rv_ingredients)
         ingredientListRV.layoutManager = LinearLayoutManager(this)
 
-        mIngredientListAdapter = AddIngredientAdapter(mOnIngredientClickListener)
-        ingredientListRV.adapter = mIngredientListAdapter
+        mIngredientListAdapterAddIngredient = AdapterAddIngredient(mOnIngredientClickListener)
+        ingredientListRV.adapter = mIngredientListAdapterAddIngredient
 
         ingredientName = findViewById(R.id.editText_IngrName)
         ingredientQuantity = findViewById(R.id.editText_IngrQuantity)
@@ -60,12 +59,12 @@ class NewMealActivity : AppCompatActivity() {
             if (name.isNotBlank() && quantity.isNotBlank()) {
 
                 //Get id automatically using method in adapter
-                val id = mIngredientListAdapter.getNextItemId()
+                val id = mIngredientListAdapterAddIngredient.getNextItemId()
                 //Create the ingredient model
                 val model = Ingredient(id, name, quantity)
 
                 //add model to the adapter
-                mIngredientListAdapter.addIngredient(model)
+                mIngredientListAdapterAddIngredient.addIngredient(model)
 
                 //Reset input
                 ingredientName.setText("")
@@ -82,7 +81,7 @@ class NewMealActivity : AppCompatActivity() {
 
             if (name.isNotBlank()) {
 
-                val newMeal = MealModelClass(name, mIngredientListAdapter.getIngredientList(), method)
+                val newMeal = MealModelClass(name, mIngredientListAdapterAddIngredient.getIngredientList(), method)
 
                 val gson = GsonBuilder().setPrettyPrinting().create()
 

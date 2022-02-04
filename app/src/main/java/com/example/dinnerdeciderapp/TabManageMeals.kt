@@ -9,14 +9,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dinnerdeciderapp.model.MealModelClass
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
-import org.json.JSONException
 
 /*Functionality for the Manage Meals tab. Allows the uses to view their meals and add new meals.
     * TODO:("Allow the user to edit and delete existing meals.")*/
-class ManageMeals : Fragment() {
+class TabManageMeals : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +25,7 @@ class ManageMeals : Fragment() {
         val rvMealList = view.findViewById<RecyclerView>(R.id.rv_MealList)
 
         //Adapter uses the MealArrayObject singleton's array of meals
-        rvMealList.adapter = ListMealsAdapter(MealArrayObject.singletonMealArray)
+        rvMealList.adapter = AdapterListMeals(MealArrayObject.singletonMealArray)
         //Add meal objects to the recycler view
         rvMealList.layoutManager = LinearLayoutManager(view.context)
 

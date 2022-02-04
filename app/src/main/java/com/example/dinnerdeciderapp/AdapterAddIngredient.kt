@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
 
-class AddIngredientAdapter (
+class AdapterAddIngredient (
     private val onIngredientClickListener: OnIngredientClickListener,
     private val ingredientList: ArrayList<Ingredient> = ArrayList()
-    ) : RecyclerView.Adapter<AddIngredientAdapter.ViewHolder>() {
+    ) : RecyclerView.Adapter<AdapterAddIngredient.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -29,7 +29,7 @@ class AddIngredientAdapter (
         return holder
     }
 
-    override fun onBindViewHolder(holder: AddIngredientAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AdapterAddIngredient.ViewHolder, position: Int) {
         val item = ingredientList[position]
 
         holder.tvIngrQuantity.text = item.quantity

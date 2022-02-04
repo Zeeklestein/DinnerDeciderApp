@@ -19,17 +19,17 @@ class MainActivity : AppCompatActivity() {
         val viewPager = findViewById<ViewPager2>(R.id.view_pager)
 
         //Set up view pager adapter and add the fragments to its array
-        val viewPagerAdapter = ViewPagerAdapter(this)
-        viewPagerAdapter.addFragment(Home())
-        viewPagerAdapter.addFragment(ManageMeals())
-        viewPagerAdapter.addFragment(ShoppingList())
+        val viewPagerAdapter = AdapterViewPager(this)
+        viewPagerAdapter.addFragment(TabHome())
+        viewPagerAdapter.addFragment(TabManageMeals())
+        viewPagerAdapter.addFragment(TabShoppingList())
         viewPager.adapter = viewPagerAdapter
 
         //Set up tab layout tabs
         TabLayoutMediator(tabLayout, viewPager
         ) { tab, position ->
             when (position) {
-                0 -> tab.text = "Home"
+                0 -> tab.text = "TabHome"
                 1 -> tab.text = "Manage"
                 2 -> tab.text = "List"
         }

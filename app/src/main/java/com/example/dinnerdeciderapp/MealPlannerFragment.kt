@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class ShoppingList : Fragment() {
+
+class MealPlannerFragment : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_shopping_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_meal_planner, container, false)
 
 
 
         return view
     }
-}
+   }
