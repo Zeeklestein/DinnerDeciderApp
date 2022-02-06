@@ -7,10 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.MealModelClass
 
-enum class Day{
-    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
-}
-
 class AdapterMealPlanner(
     ): RecyclerView.Adapter<AdapterMealPlanner.ViewHolder>() {
 
@@ -59,5 +55,9 @@ class AdapterMealPlanner(
         mealList = list
         //TODO: Look into finding an alternative to the following problem
         notifyDataSetChanged()
+    }
+
+    enum class Day{
+        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }
 }

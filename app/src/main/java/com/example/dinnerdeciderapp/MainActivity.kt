@@ -15,8 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val tabLayout = findViewById<TabLayout>(R.id.tabs)
-        val viewPager = findViewById<ViewPager2>(R.id.view_pager)
+        val tabLayout = findViewById<TabLayout>(R.id.tabs_mainActivity)
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager_mainActivity)
 
         //Set up view pager adapter and add the fragments to its array
         val viewPagerAdapter = AdapterViewPager(this)
@@ -25,13 +25,13 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.addFragment(TabShoppingList())
         viewPager.adapter = viewPagerAdapter
 
-        //Set up tab layout tabs
+        //Set up tab layout tabs_mainActivity
         TabLayoutMediator(tabLayout, viewPager
         ) { tab, position ->
             when (position) {
-                0 -> tab.text = "Home"
-                1 -> tab.text = "Manage"
-                2 -> tab.text = "List"
+                0 -> tab.text = "Planner"
+                1 -> tab.text = "My Meals"
+                2 -> tab.text = "Shopping List"
         }
         }.attach()
 

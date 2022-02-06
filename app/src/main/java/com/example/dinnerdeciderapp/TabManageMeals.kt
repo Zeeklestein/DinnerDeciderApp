@@ -19,7 +19,7 @@ class TabManageMeals : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_manage_meals, container, false)
+        val view = inflater.inflate(R.layout.fragment_tab_manage_meals, container, false)
         val newMealButton = view.findViewById<Button>(R.id.btn_NewMeal)
 
         val rvMealList = view.findViewById<RecyclerView>(R.id.rv_MealList)

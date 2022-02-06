@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+        android:id="@+id/tabs_mainActivity"
         android:layout_width="409dp"
         android:layout_height="wrap_content">
 
@@ -28,8 +28,8 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
+        android:id="@+id/viewPager_mainActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tabs" />
+        android:layout_below="@id/tabs_mainActivity" />
 </RelativeLayout>

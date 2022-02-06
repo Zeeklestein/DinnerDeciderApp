@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.MealModelClass
@@ -19,7 +18,7 @@ class TabHome : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_home, container, false)
+        val view =  inflater.inflate(R.layout.fragment_tab_home, container, false)
 
         var randomMealsArray: ArrayList<MealModelClass> = ArrayList()
 
