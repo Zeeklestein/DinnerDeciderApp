@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dinnerdeciderapp.model.MealModelClass
+import com.example.dinnerdeciderapp.model.Meal
 
 class AdapterListMeals(
-    private val mealList: ArrayList<MealModelClass> = ArrayList()
+    private val mealList: ArrayList<Meal> = ArrayList()
     ) : RecyclerView.Adapter<AdapterListMeals.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

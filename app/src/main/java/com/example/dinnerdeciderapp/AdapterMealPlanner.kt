@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dinnerdeciderapp.model.MealModelClass
+import com.example.dinnerdeciderapp.model.Meal
 
 class AdapterMealPlanner(
     ): RecyclerView.Adapter<AdapterMealPlanner.ViewHolder>() {
 
-    private var mealList: ArrayList<MealModelClass> = ArrayList()
+    private var mealList: ArrayList<Meal> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): ViewHolder{
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -51,7 +51,7 @@ class AdapterMealPlanner(
         val tvWeekday: TextView = view.findViewById(R.id.tv_mpfWeekday)
     }
 
-    fun setMealList(list: ArrayList<MealModelClass>){
+    fun setMealList(list: ArrayList<Meal>){
         mealList = list
         //TODO: Look into finding an alternative to the following problem
         notifyDataSetChanged()

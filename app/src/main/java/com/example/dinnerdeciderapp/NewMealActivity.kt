@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
-import com.example.dinnerdeciderapp.model.MealModelClass
+import com.example.dinnerdeciderapp.model.Meal
 import com.google.gson.GsonBuilder
 import java.io.IOException
 
@@ -81,7 +81,7 @@ class NewMealActivity : AppCompatActivity() {
 
             if (name.isNotBlank()) {
 
-                val newMeal = MealModelClass(name, mIngredientListAdapterAddIngredient.getIngredientList(), method)
+                val newMeal = Meal(name, mIngredientListAdapterAddIngredient.getIngredientList(), method)
 
                 val gson = GsonBuilder().setPrettyPrinting().create()
 

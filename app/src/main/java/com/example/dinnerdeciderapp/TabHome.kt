@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dinnerdeciderapp.model.MealModelClass
+import com.example.dinnerdeciderapp.model.Meal
 
 class TabHome : Fragment() {
 
@@ -20,7 +20,7 @@ class TabHome : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_tab_home, container, false)
 
-        var randomMealsArray: ArrayList<MealModelClass> = ArrayList()
+        var randomMealsArray: ArrayList<Meal> = ArrayList()
 
         val rvMealPlanner = view.findViewById<RecyclerView>(R.id.rv_mealPlanner)
         val mealPlannerAdapter = AdapterMealPlanner()

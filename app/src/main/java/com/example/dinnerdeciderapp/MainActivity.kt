@@ -3,7 +3,7 @@ package com.example.dinnerdeciderapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
-import com.example.dinnerdeciderapp.model.MealModelClass
+import com.example.dinnerdeciderapp.model.Meal
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.GsonBuilder
@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
 
         //Set up view pager adapter and add the fragments to its array
         val viewPagerAdapter = AdapterViewPager(this)
-        viewPagerAdapter.addFragment(TabHome())
-        viewPagerAdapter.addFragment(TabManageMeals())
-        viewPagerAdapter.addFragment(TabShoppingList())
+        viewPagerAdapter.addFragmentToList(TabHome())
+        viewPagerAdapter.addFragmentToList(TabManageMeals())
+        viewPagerAdapter.addFragmentToList(TabShoppingList())
         viewPager.adapter = viewPagerAdapter
 
         //Set up tab layout tabs_mainActivity
@@ -40,9 +40,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun initMealData(): ArrayList<MealModelClass>{
+    //TODO: Rework to add directly to the singleton class
+    private fun initMealData(): ArrayList<Meal>{
 
-        var myMealsList: ArrayList<MealModelClass> = ArrayList()
+        var myMealsList: ArrayList<Meal> = ArrayList()
 
         try{
             //Get the json meal data into a string
@@ -50,11 +51,11 @@ class MainActivity : AppCompatActivity() {
 
             if (!jsonString.isNullOrBlank()) {
 
-                //mealsArray.add(Gson().fromJson(jsonString, MealModelClass::class.java))
+                //mealsArray.add(Gson().fromJson(jsonString, Meal::class.java))
                 val gson = GsonBuilder().create()
-                //val mealList = gson.fromJson(jsonString, MealModelClass::class.java)
+                //val mealList = gson.fromJson(jsonString, Meal::class.java)
                 myMealsList = gson.fromJson(jsonString,
-                    object : TypeToken<ArrayList<MealModelClass>>() {}.type
+                    object : TypeToken<ArrayList<Meal>>() {}.type
                 )
             }
         } catch (e: JSONException){

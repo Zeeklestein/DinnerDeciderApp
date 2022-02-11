@@ -2,17 +2,17 @@ package com.example.dinnerdeciderapp
 
 import android.content.Context
 import android.widget.Toast
-import com.example.dinnerdeciderapp.model.MealModelClass
+import com.example.dinnerdeciderapp.model.Meal
 import kotlin.random.Random
 
 class MealRandomiser(
     private val context: Context
     ){
 
-    private val selectedMealArray: ArrayList<MealModelClass> = ArrayList()
+    private val selectedMealArray: ArrayList<Meal> = ArrayList()
 
     //This function returns an arraylist of 7 random meals from the MealArrayObject
-    fun getRandomMeals(): ArrayList<MealModelClass>{
+    fun getRandomMeals(): ArrayList<Meal>{
         /*Check if Meal Array Object contains at least 7 meals. Else use toast to tell user to
         add more meals.*/
         if(MealArrayObject.singletonMealArray.size >= 7) {
