@@ -25,7 +25,7 @@ class NewMealActivity : AppCompatActivity() {
     private lateinit var ingredientListRV: RecyclerView
     private lateinit var mIngredientListAdapterAddIngredient: AdapterAddIngredient
 
-    private val mOnIngredientClickListener = object : OnIngredientClickListener {
+    private val mOnIngredientClickListener = object : OnItemClickListener {
 
         override fun onDelete(model: Ingredient) {
             mIngredientListAdapterAddIngredient.removeIngredient(model)

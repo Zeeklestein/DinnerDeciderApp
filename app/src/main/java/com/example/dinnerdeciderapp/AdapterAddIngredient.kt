@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
 
 class AdapterAddIngredient (
-    private val onIngredientClickListener: OnIngredientClickListener,
+    private val onItemClickListener: OnItemClickListener,
     private val ingredientList: ArrayList<Ingredient> = ArrayList()
     ) : RecyclerView.Adapter<AdapterAddIngredient.ViewHolder>() {
 
@@ -23,7 +23,7 @@ class AdapterAddIngredient (
         holder.ingredientDelete.setOnClickListener {
             val position = holder.adapterPosition
             val model = ingredientList[position]
-            onIngredientClickListener.onDelete(model)
+            onItemClickListener.onDelete(model)
         }
 
         return holder

@@ -3,7 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/activity_inspect_meal.xml" value="0.415625" />
+        <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/activity_inspect_meal.xml" value="0.269921875" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/activity_main.xml" value="0.20525956284153005" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/activity_manage_meals.xml" value="0.25" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/activity_new_meal.xml" value="0.33" />
@@ -11,6 +11,7 @@
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/fragment_manage_meals.xml" value="0.211340206185567" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/fragment_meal_item_layout.xml" value="0.20525956284153005" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/fragment_meal_planner.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/fragment_new_ingredient_layout.xml" value="0.1" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/fragment_shopping_list.xml" value="0.259375" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/fragment_tab_inspect_ingredients.xml" value="0.415625" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/fragment_tab_inspect_method.xml" value="0.415625" />
