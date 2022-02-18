@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class SharedRecyclerViewAdapter
-    /*private val itemList: an array list with no specified type
+    /*private val itemList: an array list
     * private val layoutRef: a reference to the layout to be inflated
     * */ (): RecyclerView.Adapter<SharedRecyclerViewAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
