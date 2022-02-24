@@ -2,6 +2,7 @@ package com.example.dinnerdeciderapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.dinnerdeciderapp.model.Meal
@@ -9,6 +10,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class InspectMealActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inspect_meal)
@@ -34,23 +36,14 @@ class InspectMealActivity : AppCompatActivity() {
 
         //Get data from intent
         val receivedIntent = intent.getParcelableExtra<Meal>("SelectedMeal")
-        mealName.text = receivedIntent?.mealName
 
-        //Set up ingredients as a string array
-        val ingredientStringArray: ArrayList<String> = ArrayList()
-        if (!receivedIntent?.ingredients.isNullOrEmpty()){
-            for (ingredient in receivedIntent?.ingredients!!){
-                ingredientStringArray.add("${ingredient.quantity} ${ingredient.ingredientName}")
-            }
+        val viewModel by viewModels<SharedViewModel>()
 
-            //Send ingredient data to ingredient tab fragment
-            //val fragmentManager = supportFragmentManager
-            //val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = TabInspectIngredients()
-            val bundle = Bundle()
-            bundle.putStringArrayList("ingreList", ingredientStringArray)
-            fragment.arguments = bundle
-
+        /*TODO: Get the Ingredients to the ingredient tab fragment
+           Get the method to the method tab fragment*/
+        if (receivedIntent != null) {
+            mealName.text = receivedIntent.mealName
+            viewModel.setInspectedMeal(receivedIntent)
         }
 
 
