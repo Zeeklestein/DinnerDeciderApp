@@ -72,7 +72,7 @@ class NewMealActivity : AppCompatActivity() {
             }
         }
 
-        //Functionality for the save meal button
+        //Functionality for the save meal button TODO: Add to singleton meal array object?
         saveMealBtn = findViewById(R.id.btn_SaveMeal)
         saveMealBtn.setOnClickListener {
 
@@ -87,6 +87,7 @@ class NewMealActivity : AppCompatActivity() {
 
                 //Add the new meal to the MealArrayObject array list
                 MealArrayObject.singletonMealArray.add(newMeal)
+
                 //Convert the array list to json
                 val finalMealListString = gson.toJson(MealArrayObject.singletonMealArray)
 

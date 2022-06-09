@@ -37,32 +37,7 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
         //Get meal data from JSON file and place in meal array singleton object
-        MealArrayObject.singletonMealArray = initMealData()
-
-    }
-
-    //TODO: Rework to add directly to the singleton class
-    private fun initMealData(): ArrayList<Meal>{
-
-        var myMealsList: ArrayList<Meal> = ArrayList()
-
-        try{
-            //Get the json meal data into a string
-            val jsonString = JsonMealData().getJSONMealData(this, this.filesDir)
-
-            if (!jsonString.isNullOrBlank()) {
-
-                //mealsArray.add(Gson().fromJson(jsonString, Meal::class.java))
-                val gson = GsonBuilder().create()
-                //val mealList = gson.fromJson(jsonString, Meal::class.java)
-                myMealsList = gson.fromJson(jsonString,
-                    object : TypeToken<ArrayList<Meal>>() {}.type
-                )
-            }
-        } catch (e: JSONException){
-            e.printStackTrace()
-        }
-        return myMealsList
-
+        //MealArrayObject.singletonMealArray = initMealData()
+        MealArrayObject.initMealData(this)
     }
 }

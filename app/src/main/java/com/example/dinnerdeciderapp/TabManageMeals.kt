@@ -10,8 +10,8 @@ import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-/*Functionality for the Manage Meals tab. Allows the uses to view their meals and add new meals.
-    * TODO:("Allow the user to edit and delete existing meals.")*/
+/*Functionality for the Manage Meals tab. Allows the uses to view their meals and add new meals.*/
+
 class TabManageMeals : Fragment() {
 
     override fun onCreateView(
