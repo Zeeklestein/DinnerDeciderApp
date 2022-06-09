@@ -25,11 +25,14 @@
         android:id="@+id/tv_inspMeal_MealName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Meal Name"
-        android:textStyle="bold"
         android:layout_below="@+id/frmlay_mealImage"
-       android:layout_margin="10dp"
-        android:textSize="24sp"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Meal Name"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs_inspMeal"

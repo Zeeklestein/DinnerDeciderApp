@@ -29,12 +29,12 @@ class TabInspectIngredients : Fragment() {
 
         val ingredientsList: ArrayList<String> = ArrayList()
 
-        if (ingredients != null) {
+        if (!ingredients.isNullOrEmpty()) {
             for (ingredient in ingredients){
                 ingredientsList.add("${ingredient.quantity} ${ingredient.ingredientName}")
             }
         } else {
-            ingredientsList.add("Empty")
+            ingredientsList.add("No Ingredients Added.")
         }
 
         rvIngredients.adapter = AdapterListIngredients(ingredientsList)

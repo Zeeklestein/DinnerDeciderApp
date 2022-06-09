@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import org.json.JSONException
 
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
