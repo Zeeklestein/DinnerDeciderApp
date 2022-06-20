@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DinnerDeciderApp">
         <activity
-            android:name=".InspectMealActivity"
+            android:name=".ActivityViewMeal"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ActivityMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewMealActivity"
+            android:name=".ActivityNewMeal"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityEditMeal"
             android:exported="false" />
     </application>
 

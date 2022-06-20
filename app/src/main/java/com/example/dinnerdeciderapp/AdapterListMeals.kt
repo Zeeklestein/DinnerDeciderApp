@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Meal
 
@@ -39,7 +38,7 @@ class AdapterListMeals(
 
             this.view.setOnClickListener {
                 val context = holder.view.context
-                val intent = Intent(context, InspectMealActivity::class.java).apply {
+                val intent = Intent(context, ActivityViewMeal::class.java).apply {
                      putExtra("SelectedMeal", meal)
                 }
                 context.startActivity(intent)

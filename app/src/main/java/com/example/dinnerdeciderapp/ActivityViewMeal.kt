@@ -3,7 +3,6 @@ package com.example.dinnerdeciderapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.viewModels
 import android.widget.TextView
@@ -15,7 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.GsonBuilder
 import java.io.IOException
 
-class InspectMealActivity : AppCompatActivity() {
+class ActivityViewMeal : AppCompatActivity() {
 
     private lateinit var deleteMealBtn: ImageButton
     private lateinit var editMealBtn: ImageButton
@@ -59,8 +58,10 @@ class InspectMealActivity : AppCompatActivity() {
         editMealBtn = findViewById(R.id.btn_inspMeal_Edit)
         editMealBtn.setOnClickListener {
 
-            // TODO: Add edit functionality
-
+            val intent = Intent (this, ActivityEditMeal::class.java).apply{
+                putExtra("SelectedMeal", viewModel.inspectedMeal.value)
+            }
+            startActivity(intent)
 
         }
 
@@ -87,14 +88,13 @@ class InspectMealActivity : AppCompatActivity() {
                     val toast = Toast.makeText(this, "'${receivedIntent.mealName}' Removed Successfully", Toast.LENGTH_SHORT)
                     toast.show()
                     //Intent to automatically return to the Main Activity
-                    val intent = Intent (this, MainActivity::class.java).apply{}
+                    val intent = Intent (this, ActivityMainActivity::class.java).apply{}
                     startActivity(intent)
                 }
                 catch (ex: IOException){
                     ex.printStackTrace()
                 }
             }
-
         }
     }
 }

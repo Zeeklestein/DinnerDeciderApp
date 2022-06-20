@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken
 import org.json.JSONException
 
 
-class MainActivity : AppCompatActivity() {
+class ActivityMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

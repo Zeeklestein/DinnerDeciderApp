@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Meal (
+    val mealId: Int = 0,
     val mealName: String?,
     val ingredients: ArrayList<Ingredient>?,
     val method: String?

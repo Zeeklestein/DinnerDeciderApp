@@ -3,9 +3,11 @@ package com.example.dinnerdeciderapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Ingredient
@@ -13,7 +15,7 @@ import com.example.dinnerdeciderapp.model.Meal
 import com.google.gson.GsonBuilder
 import java.io.IOException
 
-class NewMealActivity : AppCompatActivity() {
+class ActivityEditMeal : AppCompatActivity() {
 
     private lateinit var addIngredientBtn: Button
     private lateinit var saveMealBtn: Button
@@ -32,9 +34,14 @@ class NewMealActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    // TODO: There is a lot of repeated code. Fix this and new meal activity. Superclass with two subclasses?
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_meal)
+        // Uses the same activity as new meal
+        setContentView(R.layout.activity_new_edit_meal)
+
+        //Get data from intent
+        val meal = intent.getParcelableExtra<Meal>("SelectedMeal")
 
         //Initialise the recycler view
         ingredientListRV = findViewById(R.id.rv_ingredients)
@@ -43,10 +50,30 @@ class NewMealActivity : AppCompatActivity() {
         mIngredientListAdapterAddIngredient = AdapterAddIngredient(mOnIngredientClickListener)
         ingredientListRV.adapter = mIngredientListAdapterAddIngredient
 
+        // Get the required views to assign meal info
         ingredientName = findViewById(R.id.editText_IngrName)
         ingredientQuantity = findViewById(R.id.editText_IngrQuantity)
         mealName = findViewById(R.id.editText_MealName)
         mealMethod = findViewById(R.id.editTextMulti_Method)
+
+        Log.i("inspectedMeal", "Meal: ${meal?.mealName}")
+
+        // Add meal name to meal name text view
+        if (meal != null) {
+            mealName.setText(meal.mealName)
+
+            // Add ingredients to ingredient recycler view
+            if (meal.ingredients != null) {
+                for (ingredient in meal.ingredients) {
+                    mIngredientListAdapterAddIngredient.addIngredient(ingredient)
+                }
+            }
+
+            if (!meal.method.isNullOrBlank()) {
+                // Add method to method text view
+                mealMethod.setText(meal.method)
+            }
+        }
 
         //Functionality for the add ingredient button
         addIngredientBtn = findViewById(R.id.btn_addIngr)
@@ -72,6 +99,7 @@ class NewMealActivity : AppCompatActivity() {
             }
         }
 
+        //Update JSON.
         //Functionality for the save meal button TODO: Add to singleton meal array object?
         saveMealBtn = findViewById(R.id.btn_SaveMeal)
         saveMealBtn.setOnClickListener {
@@ -81,12 +109,16 @@ class NewMealActivity : AppCompatActivity() {
 
             if (name.isNotBlank()) {
 
-                val newMeal = Meal(name, mIngredientListAdapterAddIngredient.getIngredientList(), method)
+                // Get the index of the meal we're updating by the meal id.
+                val mealArrayIndex = MealArrayObject.singletonMealArray.indexOf(meal)
+
+                // Create a Meal object of the updated meal
+                val updatedMeal = Meal( meal!!.mealId, name, mIngredientListAdapterAddIngredient.getIngredientList(), method)
 
                 val gson = GsonBuilder().setPrettyPrinting().create()
 
                 //Add the new meal to the MealArrayObject array list
-                MealArrayObject.singletonMealArray.add(newMeal)
+                MealArrayObject.singletonMealArray[mealArrayIndex] = updatedMeal
 
                 //Convert the array list to json
                 val finalMealListString = gson.toJson(MealArrayObject.singletonMealArray)
@@ -95,10 +127,10 @@ class NewMealActivity : AppCompatActivity() {
                 try{
                     JsonMealData().writeJSONMealData(this, finalMealListString.toByteArray())
                     //Show toast to notify that the meal was added successfully
-                    val toast = Toast.makeText(this, "'${newMeal.mealName}' Added Successfully", Toast.LENGTH_SHORT)
+                    val toast = Toast.makeText(this, "'${updatedMeal.mealName}' Updated Successfully", Toast.LENGTH_SHORT)
                     toast.show()
                     //Intent to automatically return to the Manage Meals Activity
-                    val intent = Intent (this, MainActivity::class.java).apply{}
+                    val intent = Intent (this, ActivityMainActivity::class.java).apply{}
                     startActivity(intent)
                 }
                 catch (ex: IOException){

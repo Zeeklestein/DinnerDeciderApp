@@ -11,6 +11,15 @@ object MealArrayObject {
 
     var singletonMealArray: ArrayList<Meal> = ArrayList()
 
+    // Used to assign the next meal id to a new meal
+    fun getNextItemId(): Int{
+        var id = 1
+        if(singletonMealArray.isNotEmpty()){
+            id = singletonMealArray.last().mealId + 1
+        }
+        return id
+    }
+
     // Method to initialise meal data from JSON file to the singleton array
     fun initMealData(context: Context){
 

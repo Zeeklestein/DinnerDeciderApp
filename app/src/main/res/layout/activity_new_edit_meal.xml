@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityNewMeal">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Add/Edit Image -->
+
+            <ImageView
+                android:id="@+id/imageView_editImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_camera" />
+
+            <!-- Meal Name and Save Button-->
+
+            <EditText
+                android:id="@+id/editText_MealName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageView_editImage"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="Meal name"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:minHeight="48dp" />
+
+            <Button
+                android:id="@+id/btn_SaveMeal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageView_editImage"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/save_meal" />
+
+            <!-- Ingredients -->
+
+            <TextView
+                android:id="@+id/title_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editText_MealName"
+                android:layout_marginTop="20dp"
+                android:background="@color/purple_200"
+                android:text="@string/ingredients"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/editText_IngrQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_ingredients"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="Quantity"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/editText_IngrName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editText_IngrQuantity"
+                android:ems="20"
+                android:hint="Ingredient"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_addIngr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/rv_ingredients"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@id/editText_IngrName"
+                android:text="@string/add_ingredient"
+                android:textSize="12sp" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editText_IngrName"
+                android:layout_marginTop="15dp" />
+
+            <!-- Method -->
+
+            <TextView
+                android:id="@+id/title_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rv_ingredients"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/purple_200"
+                android:text="@string/method"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/editTextMulti_Method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_method"
+                android:ems="10"
+                android:hint="Method"
+                android:inputType="textMultiLine"
+                android:minHeight="48dp" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <!-- Save Button -->
+
+
+
+
+
+
+</RelativeLayout>

@@ -31,7 +31,7 @@ class TabManageMeals : Fragment() {
 
         //Listener for the new meal button. Starts the new meal activity.
         newMealButton.setOnClickListener {
-            val intent = Intent (view.context, NewMealActivity::class.java).apply{}
+            val intent = Intent (view.context, ActivityNewMeal::class.java).apply{}
             startActivity(intent)
         }
 
