@@ -1,5 +1,6 @@
 package com.example.dinnerdeciderapp
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,14 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Meal
 
 class AdapterMealPlanner(
+    private var mealList: ArrayList<Meal> = ArrayList()
     ): RecyclerView.Adapter<AdapterMealPlanner.ViewHolder>() {
 
-    private var mealList: ArrayList<Meal> = ArrayList()
+    private lateinit var holder: ViewHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): ViewHolder{
+
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.fragment_meal_planner, parent, false) as View
-        return ViewHolder(view)
+        holder = ViewHolder(view)
+        return holder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
@@ -36,6 +40,7 @@ class AdapterMealPlanner(
         else{
             val listItem = mealList[position]
             holder.tvMealName.text = listItem.mealName
+            holder.bind(listItem)
         }
     }
 
@@ -45,10 +50,22 @@ class AdapterMealPlanner(
         return 7
     }
 
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class ViewHolder(private val view: View): RecyclerView.ViewHolder(view){
         //TODO: update to include meal image
         val tvMealName: TextView = view.findViewById(R.id.tv_mpfMealName)
         val tvWeekday: TextView = view.findViewById(R.id.tv_mpfWeekday)
+
+        fun bind(meal: Meal){
+
+            // Allow each meal to be clicked on to view meal information
+            this.view.setOnClickListener {
+                val context = holder.view.context
+                val intent = Intent(context, ActivityViewMeal::class.java).apply {
+                    putExtra("SelectedMeal", meal)
+                }
+                context.startActivity(intent)
+            }
+        }
     }
 
     fun setMealList(list: ArrayList<Meal>){

@@ -30,7 +30,7 @@ class AdapterListMeals(
         return mealList.size
     }
 
-    inner class ViewHolder(private val view: View): RecyclerView.ViewHolder(view){
+    inner class ViewHolder(val view: View): RecyclerView.ViewHolder(view){
         val tvMealName: TextView = view.findViewById(R.id.tv_IngrName)
 
         fun bind (meal: Meal){
