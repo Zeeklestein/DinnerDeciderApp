@@ -3,12 +3,8 @@ package com.example.dinnerdeciderapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
-import com.example.dinnerdeciderapp.model.Meal
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
-import org.json.JSONException
 
 
 class ActivityMainActivity : AppCompatActivity() {
@@ -21,7 +17,7 @@ class ActivityMainActivity : AppCompatActivity() {
 
         //Set up view pager adapter and add the fragments to its array
         val viewPagerAdapter = AdapterViewPager(this)
-        viewPagerAdapter.addFragmentToList(TabHome())
+        viewPagerAdapter.addFragmentToList(TabPlanner())
         viewPagerAdapter.addFragmentToList(TabManageMeals())
         viewPagerAdapter.addFragmentToList(TabShoppingList())
         viewPager.adapter = viewPagerAdapter
