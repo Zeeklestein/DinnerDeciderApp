@@ -21,12 +21,13 @@
                 android:id="@+id/imageView_editImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:adjustViewBounds="true"
                 android:layout_alignParentTop="true"
                 android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/imgBtn_camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@android:drawable/ic_menu_camera" />
