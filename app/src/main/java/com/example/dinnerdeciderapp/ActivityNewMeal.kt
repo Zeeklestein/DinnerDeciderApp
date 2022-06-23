@@ -3,6 +3,8 @@ package com.example.dinnerdeciderapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -35,6 +37,8 @@ class ActivityNewMeal : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_edit_meal)
+
+        //supportActionBar?.title = "New Meal"
 
         //Initialise the recycler view
         ingredientListRV = findViewById(R.id.rv_ingredients)
@@ -71,43 +75,65 @@ class ActivityNewMeal : AppCompatActivity() {
                 ingredientQuantity.setText("")
             }
         }
+    }
 
-        //Functionality for the save meal button TODO: Add to singleton meal array object?
-        saveMealBtn = findViewById(R.id.btn_SaveMeal)
-        saveMealBtn.setOnClickListener {
+    // Set menu for save button
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
-            val name = mealName.text.toString()
-            val method = mealMethod.text.toString()
+        menuInflater.inflate(R.menu.new_meal_menu, menu)
+        return true
+    }
 
-            if (name.isNotBlank()) {
+    // Override to set what the menu items do
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-                // Generate an ID for the new meal
-                val mealId = MealArrayObject.getNextItemId()
+        when (item.itemId){
+            R.id.saveNewMeal -> {
+                //Functionality for the save meal button TODO: Add to singleton meal array object?
+                val name = mealName.text.toString()
+                val method = mealMethod.text.toString()
 
-                val newMeal = Meal(mealId, name, mIngredientListAdapterAddIngredient.getIngredientList(), method)
+                if (name.isNotBlank()) {
 
-                val gson = GsonBuilder().setPrettyPrinting().create()
+                    // Generate an ID for the new meal
+                    val mealId = MealArrayObject.getNextItemId()
 
-                //Add the new meal to the MealArrayObject array list
-                MealArrayObject.singletonMealArray.add(newMeal)
+                    val newMeal = Meal(
+                        mealId,
+                        name,
+                        mIngredientListAdapterAddIngredient.getIngredientList(),
+                        method
+                    )
 
-                //Convert the array list to json
-                val finalMealListString = gson.toJson(MealArrayObject.singletonMealArray)
+                    val gson = GsonBuilder().setPrettyPrinting().create()
 
-                //Write the final json string to file
-                try{
-                    JsonMealData().writeJSONMealData(this, finalMealListString.toByteArray())
-                    //Show toast to notify that the meal was added successfully
-                    val toast = Toast.makeText(this, "'${newMeal.mealName}' Added Successfully", Toast.LENGTH_SHORT)
-                    toast.show()
-                    //Intent to automatically return to the Manage Meals Activity
-                    val intent = Intent (this, ActivityMainActivity::class.java).apply{}
-                    startActivity(intent)
-                }
-                catch (ex: IOException){
-                    ex.printStackTrace()
+                    //Add the new meal to the MealArrayObject array list
+                    MealArrayObject.singletonMealArray.add(newMeal)
+
+                    //Convert the array list to json
+                    val finalMealListString = gson.toJson(MealArrayObject.singletonMealArray)
+
+                    //Write the final json string to file
+                    try {
+                        JsonMealData().writeJSONMealData(this, finalMealListString.toByteArray())
+                        //Show toast to notify that the meal was added successfully
+                        val toast = Toast.makeText(
+                            this,
+                            "'${newMeal.mealName}' Added Successfully",
+                            Toast.LENGTH_SHORT
+                        )
+                        toast.show()
+                        //Intent to automatically return to the Manage Meals Activity
+                        val intent = Intent(this, ActivityMainActivity::class.java).apply {}
+                        startActivity(intent)
+                    } catch (ex: IOException) {
+                        ex.printStackTrace()
+                    }
                 }
             }
         }
+
+        return super.onOptionsItemSelected(item)
     }
+
 }

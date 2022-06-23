@@ -34,22 +34,6 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/btn_inspMeal_Delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/frmlay_mealImage"
-        android:layout_alignParentEnd="true"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
-
-    <ImageButton
-        android:id="@+id/btn_inspMeal_Edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/frmlay_mealImage"
-        android:layout_toStartOf="@id/btn_inspMeal_Delete"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs_inspMeal"
         android:layout_width="match_parent"

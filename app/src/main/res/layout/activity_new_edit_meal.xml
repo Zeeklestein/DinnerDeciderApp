@@ -45,17 +45,6 @@
                 android:inputType="text"
                 android:minHeight="48dp" />
 
-            <Button
-                android:id="@+id/btn_SaveMeal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imageView_editImage"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/save_meal" />
-
             <!-- Ingredients -->
 
             <TextView

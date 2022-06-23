@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -26,6 +28,7 @@ class ActivityEditMeal : AppCompatActivity() {
 
     private lateinit var ingredientListRV: RecyclerView
     private lateinit var mIngredientListAdapterAddIngredient: AdapterAddIngredient
+
 
     private val mOnIngredientClickListener = object : OnItemClickListener {
 
@@ -56,7 +59,6 @@ class ActivityEditMeal : AppCompatActivity() {
         mealName = findViewById(R.id.editText_MealName)
         mealMethod = findViewById(R.id.editTextMulti_Method)
 
-        Log.i("inspectedMeal", "Meal: ${meal?.mealName}")
 
         // Add meal name to meal name text view
         if (meal != null) {
@@ -99,44 +101,69 @@ class ActivityEditMeal : AppCompatActivity() {
             }
         }
 
-        //Update JSON.
-        //Functionality for the save meal button TODO: Add to singleton meal array object?
-        saveMealBtn = findViewById(R.id.btn_SaveMeal)
-        saveMealBtn.setOnClickListener {
 
-            val name = mealName.text.toString()
-            val method = mealMethod.text.toString()
+    }
 
-            if (name.isNotBlank()) {
+    // Set menu for save button
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
-                // Get the index of the meal we're updating by the meal id.
-                val mealArrayIndex = MealArrayObject.singletonMealArray.indexOf(meal)
+        menuInflater.inflate(R.menu.new_meal_menu, menu)
+        return true
+    }
 
-                // Create a Meal object of the updated meal
-                val updatedMeal = Meal( meal!!.mealId, name, mIngredientListAdapterAddIngredient.getIngredientList(), method)
+    // Override to set what the menu items do
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-                val gson = GsonBuilder().setPrettyPrinting().create()
+        when (item.itemId){
+            R.id.saveNewMeal -> {
+                //Update JSON.
+                //Functionality for the save meal button TODO: Add to singleton meal array object?
+                val name = mealName.text.toString()
+                val method = mealMethod.text.toString()
 
-                //Add the new meal to the MealArrayObject array list
-                MealArrayObject.singletonMealArray[mealArrayIndex] = updatedMeal
+                //Get data from intent
+                val meal = intent.getParcelableExtra<Meal>("SelectedMeal")
 
-                //Convert the array list to json
-                val finalMealListString = gson.toJson(MealArrayObject.singletonMealArray)
+                if (name.isNotBlank()) {
 
-                //Write the final json string to file
-                try{
-                    JsonMealData().writeJSONMealData(this, finalMealListString.toByteArray())
-                    //Show toast to notify that the meal was added successfully
-                    val toast = Toast.makeText(this, "'${updatedMeal.mealName}' Updated Successfully", Toast.LENGTH_SHORT)
-                    toast.show()
-                    //Intent to automatically return to the Manage Meals Activity
-                    val intent = Intent (this, ActivityMainActivity::class.java).apply{}
-                    startActivity(intent)
-                }
-                catch (ex: IOException){
-                    ex.printStackTrace()
+                    // Get the index of the meal we're updating by the meal id.
+                    val mealArrayIndex = MealArrayObject.singletonMealArray.indexOf(meal)
+
+                    // Create a Meal object of the updated meal
+                    val updatedMeal = Meal(
+                        meal!!.mealId,
+                        name,
+                        mIngredientListAdapterAddIngredient.getIngredientList(),
+                        method
+                    )
+
+                    val gson = GsonBuilder().setPrettyPrinting().create()
+
+                    //Add the new meal to the MealArrayObject array list
+                    MealArrayObject.singletonMealArray[mealArrayIndex] = updatedMeal
+
+                    //Convert the array list to json
+                    val finalMealListString = gson.toJson(MealArrayObject.singletonMealArray)
+
+                    //Write the final json string to file
+                    try {
+                        JsonMealData().writeJSONMealData(this, finalMealListString.toByteArray())
+                        //Show toast to notify that the meal was added successfully
+                        val toast = Toast.makeText(
+                            this,
+                            "'${updatedMeal.mealName}' Updated Successfully",
+                            Toast.LENGTH_SHORT
+                        )
+                        toast.show()
+                        //Intent to automatically return to the Manage Meals Activity
+                        val intent = Intent(this, ActivityMainActivity::class.java).apply {}
+                        startActivity(intent)
+                    } catch (ex: IOException) {
+                        ex.printStackTrace()
+                    }
                 }
             }
         }
+        return super.onOptionsItemSelected(item)
     }
 }
