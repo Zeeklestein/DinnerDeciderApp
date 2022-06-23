@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager2.widget.ViewPager2
 import com.example.dinnerdeciderapp.model.Meal
@@ -46,11 +47,11 @@ class ActivityViewMeal : AppCompatActivity() {
         //Get data from intent
         val receivedIntent = intent.getParcelableExtra<Meal>("SelectedMeal")
 
-        //val viewModel by viewModels<SharedViewModel>()
+        val viewModel by viewModels<SharedViewModel>()
 
         if (receivedIntent != null) {
             mealName.text = receivedIntent.mealName
-            //viewModel.setInspectedMeal(receivedIntent)
+            viewModel.setInspectedMeal(receivedIntent)
         }
     }
 
