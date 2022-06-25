@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.dinnerdeciderapp">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -13,10 +14,14 @@
         android:theme="@style/Theme.DinnerDeciderApp">
         <activity
             android:name=".ActivityViewMeal"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ActivityMainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,10 +30,14 @@
         </activity>
         <activity
             android:name=".ActivityNewMeal"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".ActivityEditMeal"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity"/>
     </application>
 
 </manifest>

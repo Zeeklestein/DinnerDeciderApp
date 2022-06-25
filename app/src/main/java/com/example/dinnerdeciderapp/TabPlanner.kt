@@ -1,5 +1,6 @@
 package com.example.dinnerdeciderapp
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -43,25 +44,42 @@ class TabPlanner : Fragment() {
         val randomiseButton = view.findViewById<Button>(R.id.btn_randomise)
         val randomiser = MealRandomiser(view.context)
         randomiseButton.setOnClickListener {
-            randomMealsArray.clear()
-            randomMealsArray = randomiser.getRandomMeals()
 
-            //Notify the recycler view to add the randomised meal data.
-            mealPlannerAdapter.setMealList(randomMealsArray)
-            //rvMealPlanner.adapter.notifyItemChanged(randomMealsArray.size)
 
-            // Save randomised meal plan in a local JSON file
-            val gson = GsonBuilder().setPrettyPrinting().create()
-            //Convert the array list to json
-            val mealPlanString = gson.toJson(randomMealsArray)
+            val dialogBuilder = AlertDialog.Builder(this.requireActivity())
 
-            //Write the json string to file
-            try{
-                JsonMealData().writeMealPlanData(this.requireContext(), mealPlanString.toByteArray())
+            dialogBuilder.setTitle("Randomise")
+            dialogBuilder.setMessage("Randomising will overwrite current plan.")
+
+            dialogBuilder.setPositiveButton("Okay"){ dialog, id ->
+
+                randomMealsArray.clear()
+                randomMealsArray = randomiser.getRandomMeals()
+
+                //Notify the recycler view to add the randomised meal data.
+                mealPlannerAdapter.setMealList(randomMealsArray)
+                //rvMealPlanner.adapter.notifyItemChanged(randomMealsArray.size)
+
+                // Save randomised meal plan in a local JSON file
+                val gson = GsonBuilder().setPrettyPrinting().create()
+                //Convert the array list to json
+                val mealPlanString = gson.toJson(randomMealsArray)
+
+                //Write the json string to file
+                try{
+                    JsonMealData().writeMealPlanData(this.requireContext(), mealPlanString.toByteArray())
+                }
+                catch (ex: IOException){
+                    ex.printStackTrace()
+                }
             }
-            catch (ex: IOException){
-                ex.printStackTrace()
+
+            dialogBuilder.setNegativeButton("Cancel") {dialog, id ->
+                dialog.cancel()
             }
+
+            // Show alert dialog
+            dialogBuilder.create().show()
         }
 
         return view

@@ -131,7 +131,7 @@ class ActivityViewMeal : AppCompatActivity() {
             dialog.cancel()
         }
 
-        // Show dialog
+        // Show alert dialog
         val alert = builder.create()
         alert.show()
     }
