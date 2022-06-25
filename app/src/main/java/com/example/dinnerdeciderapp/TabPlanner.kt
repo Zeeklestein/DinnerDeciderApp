@@ -26,8 +26,6 @@ class TabPlanner : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_tab_home, container, false)
 
-        var randomMealsArray: ArrayList<Meal> = ArrayList()
-
         val rvMealPlanner = view.findViewById<RecyclerView>(R.id.rv_mealPlanner)
         val mealPlannerAdapter = AdapterMealPlanner()
         rvMealPlanner.adapter = mealPlannerAdapter
@@ -36,15 +34,16 @@ class TabPlanner : Fragment() {
         // First, check if planner file exists, if so, load the meal plan data from that
         if (JsonMealData().mealPlanFileExists(this.requireContext().filesDir)){
 
-            // Get meal plan data from file, apply it to the meal planner recycler view
-            mealPlannerAdapter.setMealList(JsonMealData().getMealPlanData(this.requireActivity(), this.requireActivity().filesDir))
+            // Get meal plan data from file, apply it to the MealPlannerArrayObject and meal planner recycler view
+            MealPlannerArrayObject.mealPlannerArray = JsonMealData().getMealPlanData(this.requireActivity(), this.requireActivity().filesDir)
+            mealPlannerAdapter.setMealList(MealPlannerArrayObject.mealPlannerArray)
         }
 
         //Functionality for the randomise button
         val randomiseButton = view.findViewById<Button>(R.id.btn_randomise)
         val randomiser = MealRandomiser(view.context)
-        randomiseButton.setOnClickListener {
 
+        randomiseButton.setOnClickListener {
 
             val dialogBuilder = AlertDialog.Builder(this.requireActivity())
 
@@ -52,18 +51,18 @@ class TabPlanner : Fragment() {
             dialogBuilder.setMessage("Randomising will overwrite current plan.")
 
             dialogBuilder.setPositiveButton("Okay"){ dialog, id ->
-
-                randomMealsArray.clear()
-                randomMealsArray = randomiser.getRandomMeals()
+                //TODO : Randomiser no longer needs to return an array. Just change the meal planner array object
+                MealPlannerArrayObject.mealPlannerArray.clear()
+                MealPlannerArrayObject.mealPlannerArray = randomiser.getRandomMeals()
 
                 //Notify the recycler view to add the randomised meal data.
-                mealPlannerAdapter.setMealList(randomMealsArray)
+                mealPlannerAdapter.setMealList(MealPlannerArrayObject.mealPlannerArray)
                 //rvMealPlanner.adapter.notifyItemChanged(randomMealsArray.size)
 
                 // Save randomised meal plan in a local JSON file
                 val gson = GsonBuilder().setPrettyPrinting().create()
                 //Convert the array list to json
-                val mealPlanString = gson.toJson(randomMealsArray)
+                val mealPlanString = gson.toJson(MealPlannerArrayObject.mealPlannerArray)
 
                 //Write the json string to file
                 try{

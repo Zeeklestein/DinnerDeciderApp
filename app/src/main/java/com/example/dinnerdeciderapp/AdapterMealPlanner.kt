@@ -1,12 +1,16 @@
 package com.example.dinnerdeciderapp
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dinnerdeciderapp.model.Meal
+import com.google.gson.GsonBuilder
+import java.io.IOException
 
 class AdapterMealPlanner(
     private var mealList: ArrayList<Meal> = ArrayList()
@@ -54,6 +58,7 @@ class AdapterMealPlanner(
         //TODO: update to include meal image
         val tvMealName: TextView = view.findViewById(R.id.tv_mpfMealName)
         val tvWeekday: TextView = view.findViewById(R.id.tv_mpfWeekday)
+        val randomiseSingle: ImageButton = view.findViewById(R.id.imgBtn_mpfRandomiseSingle)
 
         fun bind(meal: Meal){
 
@@ -64,6 +69,31 @@ class AdapterMealPlanner(
                     putExtra("SelectedMeal", meal)
                 }
                 context.startActivity(intent)
+            }
+
+            // Randomise this meal only
+            randomiseSingle.setOnClickListener {
+                val index = layoutPosition
+                val randomiser = MealRandomiser(view.context)
+
+                // Randomise selected meal
+                randomiser.randomiseOne(index)
+
+                // Update the recycler view
+                notifyItemChanged(index)
+
+                // Save randomised meal plan in a local JSON file
+                val gson = GsonBuilder().setPrettyPrinting().create()
+                //Convert the array list to json
+                val mealPlanString = gson.toJson(MealPlannerArrayObject.mealPlannerArray)
+
+                //Write the json string to file
+                try{
+                    JsonMealData().writeMealPlanData(view.context, mealPlanString.toByteArray())
+                }
+                catch (ex: IOException){
+                    ex.printStackTrace()
+                }
             }
         }
     }
