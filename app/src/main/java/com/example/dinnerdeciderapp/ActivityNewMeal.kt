@@ -14,6 +14,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dinnerdeciderapp.databinding.ActivityCameraBinding
+import com.example.dinnerdeciderapp.databinding.ActivityNewEditMealBinding
 import com.example.dinnerdeciderapp.model.Ingredient
 import com.example.dinnerdeciderapp.model.Meal
 import com.google.gson.GsonBuilder
@@ -34,12 +36,7 @@ class ActivityNewMeal : AppCompatActivity() {
     private lateinit var ingredientListRV: RecyclerView
     private lateinit var mIngredientListAdapterAddIngredient: AdapterAddIngredient
 
-    companion object {
-        private const val CAMERA_PERMISSION_CODE = 1
-        private const val CAMERA_REQUEST_CODE = 2
-    }
-
-    private val mOnIngredientClickListener = object : OnItemClickListener {
+       private val mOnIngredientClickListener = object : OnItemClickListener {
 
         override fun onDelete(model: Ingredient) {
             mIngredientListAdapterAddIngredient.removeIngredient(model)
@@ -49,8 +46,6 @@ class ActivityNewMeal : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_edit_meal)
-
-        //supportActionBar?.title = "New Meal"
 
         //Initialise the recycler view
         ingredientListRV = findViewById(R.id.rv_ingredients)
@@ -91,52 +86,8 @@ class ActivityNewMeal : AppCompatActivity() {
         val imgBtnCamera = findViewById<ImageButton>(R.id.imgBtn_camera)
         imgBtnCamera.setOnClickListener {
 
-            // Check if we have permission
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
-                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(intent, CAMERA_REQUEST_CODE) //TODO: Fix
-            } else {
-                // Request Permission
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
-            }
-
-        }
-
-    }
-
-    // Function to request permission from the user to use the camera
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if(requestCode == CAMERA_PERMISSION_CODE){
-            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(intent, CAMERA_REQUEST_CODE) //TODO: Fix
-            } else {
-                Toast.makeText(this, "Permission required to use camera.", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-
-    // Function to get and save the received image TODO: Fix
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == CAMERA_REQUEST_CODE){
-
-                // Get the image
-                image = data!!.extras!!.get("data") as Bitmap
-
-                // Apply the image to the image view
-                mealImage = findViewById(R.id.imageView_editImage)
-                mealImage.setImageBitmap(image)
-
-            }
+            val intent = Intent (this, ActivityCamera::class.java).apply{}
+            startActivity(intent)
         }
     }
 

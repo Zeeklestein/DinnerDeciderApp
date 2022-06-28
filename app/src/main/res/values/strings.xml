@@ -5,4 +5,5 @@
     <string name="ingredients">Ingredients</string>
     <string name="method">Method</string>
     <string name="save_meal">Save Meal</string>
+    <string name="take_photo">Take Photo</string>
 </resources>
