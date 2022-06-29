@@ -3,11 +3,14 @@ package com.example.dinnerdeciderapp
 import android.content.DialogInterface
 import android.content.Intent
 import android.media.metrics.Event
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -17,7 +20,9 @@ import com.example.dinnerdeciderapp.model.Meal
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.GsonBuilder
+import java.io.File
 import java.io.IOException
+import java.net.URI
 
 class ActivityViewMeal : AppCompatActivity() {
 
@@ -43,6 +48,7 @@ class ActivityViewMeal : AppCompatActivity() {
         }.attach()
 
         val mealName: TextView = findViewById(R.id.tv_inspMeal_MealName)
+        val mealPhoto: ImageView = findViewById(R.id.imgView_inspMeal_mealImage)
 
         //Get data from intent
         val receivedIntent = intent.getParcelableExtra<Meal>("SelectedMeal")
@@ -51,6 +57,10 @@ class ActivityViewMeal : AppCompatActivity() {
 
         if (receivedIntent != null) {
             mealName.text = receivedIntent.mealName
+
+            // TODO: Check if the uri leads to a photo, if not use the default photo
+            mealPhoto.setImageURI(Uri.parse(receivedIntent.mealPhoto))
+
             viewModel.setInspectedMeal(receivedIntent)
         }
     }

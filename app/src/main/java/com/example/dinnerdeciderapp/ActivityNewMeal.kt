@@ -2,25 +2,20 @@ package com.example.dinnerdeciderapp
 
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dinnerdeciderapp.databinding.ActivityCameraBinding
-import com.example.dinnerdeciderapp.databinding.ActivityNewEditMealBinding
 import com.example.dinnerdeciderapp.model.Ingredient
 import com.example.dinnerdeciderapp.model.Meal
 import com.google.gson.GsonBuilder
 import java.io.IOException
-import java.util.jar.Manifest
 
 class ActivityNewMeal : AppCompatActivity() {
 
@@ -29,9 +24,9 @@ class ActivityNewMeal : AppCompatActivity() {
     private lateinit var ingredientQuantity: EditText
     private lateinit var mealName: EditText
     private lateinit var mealMethod: EditText
-    private lateinit var mealImage: ImageView
 
-    private lateinit var image: Bitmap
+    private lateinit var mealImageView: ImageView
+    private lateinit var mealImageString: String
 
     private lateinit var ingredientListRV: RecyclerView
     private lateinit var mIngredientListAdapterAddIngredient: AdapterAddIngredient
@@ -53,6 +48,8 @@ class ActivityNewMeal : AppCompatActivity() {
 
         mIngredientListAdapterAddIngredient = AdapterAddIngredient(mOnIngredientClickListener)
         ingredientListRV.adapter = mIngredientListAdapterAddIngredient
+
+        mealImageView = findViewById(R.id.imageView_editImage)
 
         ingredientName = findViewById(R.id.editText_IngrName)
         ingredientQuantity = findViewById(R.id.editText_IngrQuantity)
@@ -83,11 +80,26 @@ class ActivityNewMeal : AppCompatActivity() {
             }
         }
 
+        val getResult = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ){
+            if(it.resultCode == Activity.RESULT_OK){
+
+                mealImageString = it.data?.getStringExtra("MealUri").toString()
+
+                // Set image view to image uri
+                if(mealImageString.isNotBlank()) {
+                    mealImageView.setImageURI(Uri.parse(mealImageString))
+                }
+            }
+        }
+
         val imgBtnCamera = findViewById<ImageButton>(R.id.imgBtn_camera)
         imgBtnCamera.setOnClickListener {
 
             val intent = Intent (this, ActivityCamera::class.java).apply{}
-            startActivity(intent)
+            getResult.launch(intent)
+
         }
     }
 
@@ -112,12 +124,12 @@ class ActivityNewMeal : AppCompatActivity() {
                     // Generate an ID for the new meal
                     val mealId = MealArrayObject.getNextItemId()
 
-                    //Todo: save image to in app files and reference in JSON
                     val newMeal = Meal(
                         mealId,
                         name,
                         mIngredientListAdapterAddIngredient.getIngredientList(),
-                        method
+                        method,
+                        mealImageString
                     )
 
                     val gson = GsonBuilder().setPrettyPrinting().create()

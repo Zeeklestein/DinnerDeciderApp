@@ -8,7 +8,8 @@ data class Meal (
     val mealId: Int = 0,
     val mealName: String?,
     val ingredients: ArrayList<Ingredient>?,
-    val method: String?
+    val method: String?,
+    val mealPhoto: String?
 ): Parcelable
 
 @Parcelize
