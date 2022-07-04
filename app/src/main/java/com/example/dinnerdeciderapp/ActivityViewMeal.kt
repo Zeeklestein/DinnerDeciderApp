@@ -58,8 +58,12 @@ class ActivityViewMeal : AppCompatActivity() {
         if (receivedIntent != null) {
             mealName.text = receivedIntent.mealName
 
-            // TODO: Check if the uri leads to a photo, if not use the default photo
             mealPhoto.setImageURI(Uri.parse(receivedIntent.mealPhoto))
+
+            // Set image to default if Uri leads to nothing
+            if(mealPhoto.drawable == null){
+                mealPhoto.setImageResource(R.drawable.photo_test)
+            }
 
             viewModel.setInspectedMeal(receivedIntent)
         }
@@ -120,7 +124,6 @@ class ActivityViewMeal : AppCompatActivity() {
             val finalMealListString = gson.toJson(MealArrayObject.singletonMealArray)
 
             //Write the final json string to file
-            // TODO: Add a confirm deletion message box
             try{
                 JsonMealData().writeJSONMealData(this, finalMealListString.toByteArray())
                 //Show toast to notify that the meal was removed successfully

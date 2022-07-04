@@ -43,9 +43,14 @@ object MealArrayObject {
 
     fun deleteMealItem(mealItem: Meal){
 
-        for( meal in singletonMealArray){
-            if(mealItem == meal) {
-                singletonMealArray.remove(mealItem)
+        // To avoid 'ConcurrentModificationException', an iterator needs to be used
+        val iterator = singletonMealArray.iterator()
+
+        // Iterate through the array list and delete the passed in meal
+        while(iterator.hasNext()){
+            val meal = iterator.next()
+            if(meal.mealId == mealItem.mealId){
+                iterator.remove()
             }
         }
     }

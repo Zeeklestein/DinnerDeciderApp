@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.5475" />
+        <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/drawable/default_test.xml" value="0.449" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/drawable/ic_baseline_save_24.xml" value="0.3865" />
+        <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.5475" />
+        <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/drawable/photo_test.xml" value="0.45" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/drawable/save.xml" value="0.4435" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/activity_camera.xml" value="0.25" />
         <entry key="..\:/Users/benys/Documents/Projects/Android/DinnerDeciderApp/app/src/main/res/layout/activity_inspect_meal.xml" value="0.269921875" />

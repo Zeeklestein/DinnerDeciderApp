@@ -42,10 +42,13 @@ class ActivityEditMeal : AppCompatActivity() {
     }
 
     // TODO: There is a lot of repeated code. Fix this and new meal activity. Superclass with two subclasses?
+    // Uses the same activity as new meal
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        // Uses the same activity as new meal
         setContentView(R.layout.activity_new_edit_meal)
+
+        // Initialise and set meal image string to blank to prevent crashing if no image is used
+        mealImageString = ""
 
         //Get data from intent
         val meal = intent.getParcelableExtra<Meal>("SelectedMeal")
@@ -188,7 +191,14 @@ class ActivityEditMeal : AppCompatActivity() {
                         toast.show()
                         //Intent to automatically return to the Manage Meals Activity
                         val intent = Intent(this, ActivityMainActivity::class.java).apply {}
+
+                        /* Use flag to prevent the back button returning to the edit meal activity and
+                        causing index out of bounds exception */
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+                        // Return to the main activity
                         startActivity(intent)
+
                     } catch (ex: IOException) {
                         ex.printStackTrace()
                     }

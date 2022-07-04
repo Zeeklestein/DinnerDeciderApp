@@ -42,6 +42,9 @@ class ActivityNewMeal : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_edit_meal)
 
+        // Initialise and set meal image string to blank to prevent crashing if no image is used
+        mealImageString = ""
+
         //Initialise the recycler view
         ingredientListRV = findViewById(R.id.rv_ingredients)
         ingredientListRV.layoutManager = LinearLayoutManager(this)
@@ -152,6 +155,12 @@ class ActivityNewMeal : AppCompatActivity() {
                         toast.show()
                         //Intent to automatically return to the Manage Meals Activity
                         val intent = Intent(this, ActivityMainActivity::class.java).apply {}
+
+                        /* Use flag to prevent the back button returning to the new meal activity and
+                        causing index out of bounds exception */
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+                        // Return to the main activity
                         startActivity(intent)
                     } catch (ex: IOException) {
                         ex.printStackTrace()
