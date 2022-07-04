@@ -51,25 +51,30 @@ class TabPlanner : Fragment() {
             dialogBuilder.setMessage("Randomising will overwrite current plan.")
 
             dialogBuilder.setPositiveButton("Okay"){ dialog, id ->
+
                 //TODO : Randomiser no longer needs to return an array. Just change the meal planner array object
-                MealPlannerArrayObject.mealPlannerArray.clear()
+                //MealPlannerArrayObject.mealPlannerArray.clear()
                 MealPlannerArrayObject.mealPlannerArray = randomiser.getRandomMeals()
 
-                //Notify the recycler view to add the randomised meal data.
-                mealPlannerAdapter.setMealList(MealPlannerArrayObject.mealPlannerArray)
-                //rvMealPlanner.adapter.notifyItemChanged(randomMealsArray.size)
+                if(MealPlannerArrayObject.mealPlannerArray.isNotEmpty()) {
+                    //Notify the recycler view to add the randomised meal data.
+                    mealPlannerAdapter.setMealList(MealPlannerArrayObject.mealPlannerArray)
+                    //rvMealPlanner.adapter.notifyItemChanged(randomMealsArray.size)
 
-                // Save randomised meal plan in a local JSON file
-                val gson = GsonBuilder().setPrettyPrinting().create()
-                //Convert the array list to json
-                val mealPlanString = gson.toJson(MealPlannerArrayObject.mealPlannerArray)
+                    // Save randomised meal plan in a local JSON file
+                    val gson = GsonBuilder().setPrettyPrinting().create()
+                    //Convert the array list to json
+                    val mealPlanString = gson.toJson(MealPlannerArrayObject.mealPlannerArray)
 
-                //Write the json string to file
-                try{
-                    JsonMealData().writeMealPlanData(this.requireContext(), mealPlanString.toByteArray())
-                }
-                catch (ex: IOException){
-                    ex.printStackTrace()
+                    //Write the json string to file
+                    try {
+                        JsonMealData().writeMealPlanData(
+                            this.requireContext(),
+                            mealPlanString.toByteArray()
+                        )
+                    } catch (ex: IOException) {
+                        ex.printStackTrace()
+                    }
                 }
             }
 

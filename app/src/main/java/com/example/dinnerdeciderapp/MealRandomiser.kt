@@ -33,7 +33,7 @@ class MealRandomiser(
                 }
             }
         } else{
-            val toast = Toast.makeText(context, "Need at least 7 meals to use Randomiser!", Toast.LENGTH_LONG)
+            val toast = Toast.makeText(context, "You need at least 7 meals to randomise meals.", Toast.LENGTH_SHORT)
             toast.show()
         }
         return selectedMealArray
